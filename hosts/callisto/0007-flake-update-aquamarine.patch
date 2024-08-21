@@ -1,0 +1,31 @@
+From 11dfb8397becca85cad078dd31bf043d1c40ceac Mon Sep 17 00:00:00 2001
+From: diniamo <diniamo53@gmail.com>
+Date: Sun, 18 Aug 2024 20:43:04 +0200
+Subject: [PATCH 07/20] flake: update aquamarine
+
+---
+ flake.lock | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/flake.lock b/flake.lock
+index c70d31d1..97016819 100644
+--- a/flake.lock
++++ b/flake.lock
+@@ -16,11 +16,11 @@
+         ]
+       },
+       "locked": {
+-        "lastModified": 1723920171,
+-        "narHash": "sha256-dVCMrAe+D/5S91erhwQj2DSzHOVzAanWqoy+vPWB9DY=",
++        "lastModified": 1724006173,
++        "narHash": "sha256-1ROh0buuxiMyc6eIb3CIbJsmYO7PhLqSYs55mOx1XTk=",
+         "owner": "hyprwm",
+         "repo": "aquamarine",
+-        "rev": "71d49670fe246cdaff4860b0effba0ab9f163b72",
++        "rev": "7f8df01d4297b9068a9592400f16044602844f86",
+         "type": "github"
+       },
+       "original": {
+-- 
+2.45.2
+

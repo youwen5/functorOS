@@ -68,7 +68,8 @@
     nix-homebrew,
     apple-silicon,
     ...
-  } @ inputs: rec {
+  } @ inputs: let
+  in rec {
     formatter = with nixpkgs.legacyPackages; {
       x86_64-linux = x86_64-linux.alejandra;
       aarch64-linux = aarch64-linux.alejandra;

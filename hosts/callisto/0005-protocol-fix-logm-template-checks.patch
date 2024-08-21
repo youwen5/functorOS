@@ -1,0 +1,25 @@
+From fa12efdd2aae6851305245f16a801fb571fbe2c1 Mon Sep 17 00:00:00 2001
+From: vaxerski <vaxry@vaxry.net>
+Date: Sun, 18 Aug 2024 22:54:47 +0200
+Subject: [PATCH 05/20] protocol: fix logm template checks
+
+---
+ src/protocols/WaylandProtocol.hpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/protocols/WaylandProtocol.hpp b/src/protocols/WaylandProtocol.hpp
+index 0fa8daab..87c75ed8 100644
+--- a/src/protocols/WaylandProtocol.hpp
++++ b/src/protocols/WaylandProtocol.hpp
+@@ -32,7 +32,7 @@
+         } else if (level == LOG || level == INFO || level == TRACE) {                                                                                                              \
+             oss << "[" << EXTRACT_CLASS_NAME() << "] ";                                                                                                                            \
+         }                                                                                                                                                                          \
+-        if constexpr (std::is_same_v<decltype(__VA_ARGS__), std::string>) {                                                                                                        \
++        if constexpr (std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value == 1 && std::is_same_v<decltype(__VA_ARGS__), std::string>) {                                 \
+             oss << __VA_ARGS__;                                                                                                                                                    \
+             Debug::log(level, oss.str());                                                                                                                                          \
+         } else {                                                                                                                                                                   \
+-- 
+2.45.2
+

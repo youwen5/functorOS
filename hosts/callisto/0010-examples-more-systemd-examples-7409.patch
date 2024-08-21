@@ -1,0 +1,49 @@
+From 01e3da4d51927427860368c88a523f47c479b710 Mon Sep 17 00:00:00 2001
+From: JL2210 <larrowe.semaj11@gmail.com>
+Date: Mon, 19 Aug 2024 09:02:09 -0400
+Subject: [PATCH 10/20] examples: more systemd examples (#7409)
+
+These allow launching hyprland with a systemd service. They provide
+graphical-session.target which allows enabling services such as the
+ones for Waybar and Mako.
+---
+ example/hyprland-session.service | 14 ++++++++++++++
+ example/hyprland-systemd.desktop |  5 +++++
+ 2 files changed, 19 insertions(+)
+ create mode 100644 example/hyprland-session.service
+ create mode 100644 example/hyprland-systemd.desktop
+
+diff --git a/example/hyprland-session.service b/example/hyprland-session.service
+new file mode 100644
+index 00000000..7d33f5b3
+--- /dev/null
++++ b/example/hyprland-session.service
+@@ -0,0 +1,14 @@
++[Unit]
++Description=Hyprland - Tiling compositor with the looks
++Documentation=man:Hyprland(1)
++BindsTo=graphical-session.target
++Before=graphical-session.target
++Wants=graphical-session-pre.target
++After=graphical-session-pre.target
++
++[Service]
++Type=notify
++ExecStart=/usr/bin/Hyprland
++ExecStop=/usr/bin/hyprctl dispatch exit
++Restart=on-failure
++Slice=session.slice
+diff --git a/example/hyprland-systemd.desktop b/example/hyprland-systemd.desktop
+new file mode 100644
+index 00000000..b36a87b2
+--- /dev/null
++++ b/example/hyprland-systemd.desktop
+@@ -0,0 +1,5 @@
++[Desktop Entry]
++Name=Hyprland
++Comment=An intelligent dynamic tiling Wayland compositor
++Exec=systemctl --user start --wait hyprland-session
++Type=Application
+-- 
+2.45.2
+

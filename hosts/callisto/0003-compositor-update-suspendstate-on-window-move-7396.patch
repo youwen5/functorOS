@@ -1,0 +1,28 @@
+From 5afc4dc42e2409da62b7bcdf0ead90329e8d7a92 Mon Sep 17 00:00:00 2001
+From: Tom Englund <tomenglund26@gmail.com>
+Date: Sun, 18 Aug 2024 21:02:46 +0200
+Subject: [PATCH 03/20] compositor: update suspendstate on window move (#7396)
+
+hyprctl dispatch -- movetoworkspacesilent x,"^kitty$" where X is the
+current workspace makes kitty stops updating until current workspace is
+changed while it is on the screen. update the suspend state after it has
+been moved.
+---
+ src/Compositor.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Compositor.cpp b/src/Compositor.cpp
+index 9d247a56..1437a653 100644
+--- a/src/Compositor.cpp
++++ b/src/Compositor.cpp
+@@ -2737,6 +2737,7 @@ void CCompositor::moveWindowToWorkspaceSafe(PHLWINDOW pWindow, PHLWORKSPACE pWor
+ 
+     g_pCompositor->updateWorkspaceWindows(pWorkspace->m_iID);
+     g_pCompositor->updateWorkspaceWindows(pWindow->workspaceID());
++    g_pCompositor->updateSuspendedStates();
+ }
+ 
+ PHLWINDOW CCompositor::getForceFocus() {
+-- 
+2.45.2
+

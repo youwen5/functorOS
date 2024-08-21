@@ -1,0 +1,146 @@
+From c86db7bbb0cf14d4955ee3a4d13c0ed9f8a0e0ae Mon Sep 17 00:00:00 2001
+From: vaxerski <vaxry@vaxry.net>
+Date: Mon, 19 Aug 2024 18:44:22 +0200
+Subject: [PATCH 12/20] monitor: avoid dangling references to old monitors
+ being undestroyed
+
+ref #7414
+---
+ src/Compositor.cpp      |  3 +--
+ src/events/Events.hpp   |  1 -
+ src/events/Monitors.cpp | 25 -------------------------
+ src/helpers/Monitor.cpp | 21 +++++++++++++++++----
+ src/helpers/Monitor.hpp |  2 +-
+ 5 files changed, 19 insertions(+), 33 deletions(-)
+
+diff --git a/src/Compositor.cpp b/src/Compositor.cpp
+index 1437a653..75c22743 100644
+--- a/src/Compositor.cpp
++++ b/src/Compositor.cpp
+@@ -2935,7 +2935,7 @@ PHLWINDOW CCompositor::windowForCPointer(CWindow* pWindow) {
+ 
+ void CCompositor::onNewMonitor(SP<Aquamarine::IOutput> output) {
+     // add it to real
+-    auto PNEWMONITOR = g_pCompositor->m_vRealMonitors.emplace_back(makeShared<CMonitor>());
++    auto PNEWMONITOR = g_pCompositor->m_vRealMonitors.emplace_back(makeShared<CMonitor>(output));
+     if (std::string("HEADLESS-1") == output->name) {
+         g_pCompositor->m_pUnsafeOutput = PNEWMONITOR.get();
+         output->name                   = "FALLBACK"; // we are allowed to do this :)
+@@ -2944,7 +2944,6 @@ void CCompositor::onNewMonitor(SP<Aquamarine::IOutput> output) {
+     Debug::log(LOG, "New output with name {}", output->name);
+ 
+     PNEWMONITOR->szName           = output->name;
+-    PNEWMONITOR->output           = output;
+     PNEWMONITOR->self             = PNEWMONITOR;
+     const bool FALLBACK           = g_pCompositor->m_pUnsafeOutput ? output == g_pCompositor->m_pUnsafeOutput->output : false;
+     PNEWMONITOR->ID               = FALLBACK ? MONITOR_INVALID : g_pCompositor->getNextAvailableMonitorID(output->name);
+diff --git a/src/events/Events.hpp b/src/events/Events.hpp
+index 8e73f54a..0af16f64 100644
+--- a/src/events/Events.hpp
++++ b/src/events/Events.hpp
+@@ -27,7 +27,6 @@ namespace Events {
+ 
+     // Monitor part 2 the sequel
+     DYNLISTENFUNC(monitorFrame);
+-    DYNLISTENFUNC(monitorDestroy);
+     DYNLISTENFUNC(monitorStateRequest);
+     DYNLISTENFUNC(monitorDamage);
+     DYNLISTENFUNC(monitorNeedsFrame);
+diff --git a/src/events/Monitors.cpp b/src/events/Monitors.cpp
+index 60fb5bef..9d2210f6 100644
+--- a/src/events/Monitors.cpp
++++ b/src/events/Monitors.cpp
+@@ -85,31 +85,6 @@ void Events::listener_monitorFrame(void* owner, void* data) {
+     }
+ }
+ 
+-void Events::listener_monitorDestroy(void* owner, void* data) {
+-    CMonitor* pMonitor = (CMonitor*)owner;
+-
+-    for (auto& m : g_pCompositor->m_vRealMonitors) {
+-        if (m->output == pMonitor->output) {
+-            pMonitor = m.get();
+-            break;
+-        }
+-    }
+-
+-    if (!pMonitor)
+-        return;
+-
+-    Debug::log(LOG, "Destroy called for monitor {}", pMonitor->szName);
+-
+-    pMonitor->onDisconnect(true);
+-
+-    pMonitor->output                 = nullptr;
+-    pMonitor->m_bRenderingInitPassed = false;
+-
+-    Debug::log(LOG, "Removing monitor {} from realMonitors", pMonitor->szName);
+-
+-    std::erase_if(g_pCompositor->m_vRealMonitors, [&](SP<CMonitor>& el) { return el.get() == pMonitor; });
+-}
+-
+ void Events::listener_monitorNeedsFrame(void* owner, void* data) {
+     const auto PMONITOR = (CMonitor*)owner;
+ 
+diff --git a/src/helpers/Monitor.cpp b/src/helpers/Monitor.cpp
+index 9542d2c4..2c6282e1 100644
+--- a/src/helpers/Monitor.cpp
++++ b/src/helpers/Monitor.cpp
+@@ -25,7 +25,7 @@ int ratHandler(void* data) {
+     return 1;
+ }
+ 
+-CMonitor::CMonitor() : state(this) {
++CMonitor::CMonitor(SP<Aquamarine::IOutput> output_) : state(this), output(output_) {
+     ;
+ }
+ 
+@@ -40,16 +40,29 @@ void CMonitor::onConnect(bool noRule) {
+         outTimeline = CSyncTimeline::create(output->getBackend()->drmFD());
+     }
+ 
+-    listeners.frame   = output->events.frame.registerListener([this](std::any d) { Events::listener_monitorFrame(this, nullptr); });
+-    listeners.destroy = output->events.destroy.registerListener([this](std::any d) { Events::listener_monitorDestroy(this, nullptr); });
+-    listeners.commit  = output->events.commit.registerListener([this](std::any d) { Events::listener_monitorCommit(this, nullptr); });
++    listeners.frame  = output->events.frame.registerListener([this](std::any d) { Events::listener_monitorFrame(this, nullptr); });
++    listeners.commit = output->events.commit.registerListener([this](std::any d) { Events::listener_monitorCommit(this, nullptr); });
+     listeners.needsFrame =
+         output->events.needsFrame.registerListener([this](std::any d) { g_pCompositor->scheduleFrameForMonitor(this, Aquamarine::IOutput::AQ_SCHEDULE_NEEDS_FRAME); });
++
+     listeners.presented = output->events.present.registerListener([this](std::any d) {
+         auto E = std::any_cast<Aquamarine::IOutput::SPresentEvent>(d);
+         PROTO::presentation->onPresented(this, E.when, E.refresh, E.seq, E.flags);
+     });
+ 
++    listeners.destroy = output->events.destroy.registerListener([this](std::any d) {
++        Debug::log(LOG, "Destroy called for monitor {}", szName);
++
++        onDisconnect(true);
++
++        output                 = nullptr;
++        m_bRenderingInitPassed = false;
++
++        Debug::log(LOG, "Removing monitor {} from realMonitors", szName);
++
++        std::erase_if(g_pCompositor->m_vRealMonitors, [&](SP<CMonitor>& el) { return el.get() == this; });
++    });
++
+     listeners.state = output->events.state.registerListener([this](std::any d) {
+         auto E = std::any_cast<Aquamarine::IOutput::SStateEvent>(d);
+ 
+diff --git a/src/helpers/Monitor.hpp b/src/helpers/Monitor.hpp
+index dcfcb63b..01a5d28d 100644
+--- a/src/helpers/Monitor.hpp
++++ b/src/helpers/Monitor.hpp
+@@ -59,7 +59,7 @@ class CMonitorState {
+ 
+ class CMonitor {
+   public:
+-    CMonitor();
++    CMonitor(SP<Aquamarine::IOutput> output);
+     ~CMonitor();
+ 
+     Vector2D                    vecPosition         = Vector2D(-1, -1); // means unset
+-- 
+2.45.2
+

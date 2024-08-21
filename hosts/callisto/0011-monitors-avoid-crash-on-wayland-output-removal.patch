@@ -1,0 +1,25 @@
+From 272d9048706379201b761c3159c24a20cd62fad1 Mon Sep 17 00:00:00 2001
+From: vaxerski <vaxry@vaxry.net>
+Date: Mon, 19 Aug 2024 18:36:06 +0200
+Subject: [PATCH 11/20] monitors: avoid crash on wayland output removal
+
+---
+ src/events/Monitors.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/events/Monitors.cpp b/src/events/Monitors.cpp
+index b2778062..60fb5bef 100644
+--- a/src/events/Monitors.cpp
++++ b/src/events/Monitors.cpp
+@@ -98,7 +98,7 @@ void Events::listener_monitorDestroy(void* owner, void* data) {
+     if (!pMonitor)
+         return;
+ 
+-    Debug::log(LOG, "Destroy called for monitor {}", pMonitor->output->name);
++    Debug::log(LOG, "Destroy called for monitor {}", pMonitor->szName);
+ 
+     pMonitor->onDisconnect(true);
+ 
+-- 
+2.45.2
+

@@ -1,7 +1,7 @@
 From 279ec1c291021479b050c83a0435ac7076c1aee0 Mon Sep 17 00:00:00 2001
 From: vaxerski <vaxry@vaxry.net>
 Date: Sun, 18 Aug 2024 19:51:54 +0200
-Subject: [PATCH] linux-dmabuf: allow on split-node systems
+Subject: [PATCH 01/20] linux-dmabuf: allow on split-node systems
 
 ref #7364
 ---
