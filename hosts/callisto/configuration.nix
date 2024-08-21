@@ -183,6 +183,7 @@
   programs.dconf.enable = true;
 
   programs.hyprland.enable = true;
+  # programs.hyprland.package = inputs.stablepkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
