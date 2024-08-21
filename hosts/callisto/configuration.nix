@@ -45,26 +45,7 @@
           oldAttrs.patches
           or []
           ++ [
-            ./0001-linux-dmabuf-allow-on-split-node-systems.patch
-            ./0002-renderer-pass-custom-modelines-to-aq.patch
-            ./0003-compositor-update-suspendstate-on-window-move-7396.patch
-            ./0004-screencopy-nuke-unused-stuff.patch
-            ./0005-protocol-fix-logm-template-checks.patch
-            ./0006-screencopy-fix-10b-format-r-b-flip.patch
-            ./0007-flake-update-aquamarine.patch
-            ./0008-hyprpm-hyprctl-update-shell-completions.patch
-            ./0009-config-add-missing-header-for-libc-after-92744b5b9aa.patch
-            ./0010-examples-more-systemd-examples-7409.patch
-            ./0011-monitors-avoid-crash-on-wayland-output-removal.patch
-            ./0012-monitor-avoid-dangling-references-to-old-monitors-be.patch
-            ./0013-example-config-fix-typo-in-default-config-7446.patch
-            ./0014-core-add-option-to-control-which-window-to-focus-on-.patch
-            ./0015-output-dont-cast-enum-out-of-range-7448.patch
-            ./0016-animations-add-workspace-in-out-configs.patch
-            ./0017-Nix-include-xcursor-regardless-of-xwayland.patch
-            ./0018-Fix-static-asan-patch.patch
-            ./0019-Fix-Makefile-too.patch
-            ./0020-layersurface-dont-rollover-on-size_t-7451.patch
+            ./asahi-fix.patch
           ];
       });
     })
