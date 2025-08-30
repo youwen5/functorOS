@@ -29,9 +29,9 @@
   options.functorOS._users = lib.mkOption {
     type = lib.types.listOf lib.types.attrs;
     description = ''
-      INTERNAL functorOS OPTION --- DO NOT SET!
+      Internal list of all functorOS users.
     '';
     default = [ ];
+    internal = true;
   };
 }
-
