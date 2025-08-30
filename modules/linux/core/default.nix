@@ -76,7 +76,10 @@ in
     };
   };
 
-  options.system.nixos.codeName = lib.mkOption { readOnly = false; };
+  options.system.nixos.codeName = lib.mkOption {
+    readOnly = false;
+    internal = true;
+  };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages =
