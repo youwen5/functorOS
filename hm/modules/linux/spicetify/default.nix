@@ -14,6 +14,11 @@
       enabledExtensions = with spicepkgs.extensions; [
         lastfm
         fullAppDisplayMod
+        adblock
+        shuffle
+        fullAlbumDate
+        featureShuffle
+        showQueueDuration
       ];
       enabledCustomApps = with spicepkgs.apps; [
         lyricsPlus
