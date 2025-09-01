@@ -50,41 +50,76 @@
         # If you set this to true, Git will automatically be configured with the fullName and email set above.
         configureGitUser = true;
 
+        # IMPORTANT! You can declaratively set the initial password of your
+        # user here. The hash below corresponds to `functoros`, typed exactly
+        # like that. If you do not change it, the password of your user will be
+        # `functoros`. You may also obtain a hash for your desired password by
+        # using the `mkpasswd` shell command.
+        #
+        # After you log into your functorOS system for the first time, you can
+        # change your password as usual with the `passwd` command.
+        initialHashedPassword = "$y$j9T$lbiby1K38jJ2sHZdqMri11$ICJIc8krn9osyHPdVW3cwIoOaCiXOAFAqCeYrILMqC8";
+
         # This is treated just like a standard `home.nix` home-manager
         # configuration file.
-        configuration = {
-          # You can set arbitrary options here. For example, if your
-          # home-manager configuration is in another file, then import it like
-          # so:
-          # imports = [
-          # ./home.nix
-          # ];
-          # Or any other option, like
-          # programs.neovim.enable = true;
-          # programs.neovim.settings = { # --snip-- };
+        #
+        # The comments below also provide a general overview of the features.
+        #
+        # Optionally, see <https://web.youwen.dev/writing/anatomy-of-a-nixos-module> for
+        # further information about NixOS and home-manager modules.
+        configuration =
+          {
+            pkgs, # standard pkgs object
+            lib, # the nixpkgs standard library
+            inputs, # the flake inputs defined above
+            config, # object that represents the final home-manager configuration
+            ...
+          }:
+          {
+            # You can set arbitrary options here. For example, if your
+            # home-manager configuration is in another file, then import it like
+            # so:
+            # imports = [
+            # ./home.nix
+            # ];
+            # Or any other option, like
+            # programs.neovim.enable = true;
+            # programs.neovim.settings = { # --snip-- };
 
-          # Let's set the home-manager state version.
+            # Let's set the home-manager state version.
 
-          # This value determines the NixOS release from which the default
-          # settings for stateful data, like file locations and database versions
-          # on your system were taken. It‘s perfectly fine and recommended to leave
-          # this value at the release version of the first install of home-manager.
-          home.stateVersion = "25.05";
-        };
+            # This value determines the NixOS release from which the default
+            # settings for stateful data, like file locations and database versions
+            # on your system were taken. It‘s perfectly fine and recommended to leave
+            # this value at the release version of the first install of home-manager.
+            home.stateVersion = "25.05";
+          };
       };
     in
     {
       # Execute sudo nixos-rebuild switch --flake .#functorOS
       nixosConfigurations = {
-        functorOS = functorOSLib.system.instantiate {
-          hostname = "functorOS";
+        # If you change your hostname, make sure to set it in both places (i.e. both of the lines below).
+        functorOS-machine = functorOSLib.system.instantiate {
+          hostname = "functorOS-machine";
 
           # List of users generated with functorOSLib.user.instantiate.
           users = [ exampleUser ];
 
           # Additional system configuration.
+          #
+          # The comments below also provide a general overview of the features.
+          #
+          # Optionally, see <https://web.youwen.dev/writing/anatomy-of-a-nixos-module> for
+          # further information about NixOS and home-manager modules.
           configuration =
-            { pkgs, ... }:
+            {
+              pkgs, # standard pkgs object
+              lib, # the nixpkgs standard library
+              inputs, # the flake inputs defined above
+              config, # object that represents the final NixOS configuration
+              ...
+            }:
             {
               # This is treated just like a standard configuration.nix file.
 
