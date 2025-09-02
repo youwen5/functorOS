@@ -29,9 +29,6 @@ in
     imports = [
       "${inputs.asahi}/apple-silicon-support"
     ];
-    nixpkgs.overlays = [
-      inputs.asahi.overlays.apple-silicon-overlay
-    ];
     networking.wireless.iwd.enable = true;
     networking.networkmanager = {
       enable = true;

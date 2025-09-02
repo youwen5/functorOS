@@ -109,6 +109,7 @@
               inputs.stylix.nixosModules.stylix
               inputs.agenix.nixosModules.age
               inputs.musnix.nixosModules.musnix
+              inputs.asahi.overlays.apple-silicon-overlay
               ./modules/default.nix
               ./overlays
               (
