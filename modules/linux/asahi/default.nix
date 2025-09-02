@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.functorOS.extras.gaming;
+  cfg = config.functorOS.system.asahi;
 in
 {
   options.functorOS.system.asahi = {
