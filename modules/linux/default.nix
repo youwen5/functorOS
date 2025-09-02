@@ -16,6 +16,7 @@
     ./wsl
     ./graphics
     ./localization
+    ./asahi
   ];
 
   options.functorOS.enable = lib.mkOption {
