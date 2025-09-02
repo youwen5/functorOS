@@ -6,23 +6,30 @@
   ...
 }:
 {
-  config = lib.mkIf (config.functorOS.programs.enable && osConfig.functorOS.config.allowUnfree) {
-    programs.spicetify = {
-      enable = true;
-      # theme = spicepkgs.themes.dribbblish;
-      # colorScheme = "rosepine";
-      enabledExtensions = with spicepkgs.extensions; [
-        lastfm
-        fullAppDisplayMod
-        adblock
-        shuffle
-        fullAlbumDate
-        featureShuffle
-        showQueueDuration
-      ];
-      enabledCustomApps = with spicepkgs.apps; [
-        lyricsPlus
-      ];
-    };
-  };
+  config =
+    lib.mkIf
+      (
+        (!config.functorOS.programs.enable && osConfig.functorOS.config.allowUnfree)
+        #       && !options.functorOS.system.asahi.enable
+      )
+      {
+        programs.spicetify = {
+          enable = true;
+          # theme = spicepkgs.themes.dribbblish;
+          # colorScheme = "rosepine";
+          enabledExtensions = with spicepkgs.extensions; [
+            lastfm
+            fullAppDisplayMod
+            adblock
+            shuffle
+            fullAlbumDate
+            featureShuffle
+            showQueueDuration
+          ];
+          enabledCustomApps = with spicepkgs.apps; [
+            lyricsPlus
+          ];
+        };
+      };
 }
+

@@ -26,9 +26,9 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    imports = [
-      "${inputs.asahi}/apple-silicon-support"
-    ];
+    # imports = [
+    #   "${inputs.asahi}/apple-silicon-support"
+    # ];
     networking.wireless.iwd.enable = true;
     networking.networkmanager = {
       enable = true;
