@@ -29,6 +29,9 @@ in
     imports = [
       "${inputs.asahi}/apple-silicon-support"
     ];
+    nixpkgs.overlays = [
+      inputs.asahi.overlays.apple-silicon-overlay
+    ];
     networking.wireless.iwd.enable = true;
     networking.networkmanager = {
       enable = true;
@@ -46,9 +49,6 @@ in
       enable = true;
       peripheralFirmwareDirectory = cfg.firmware;
     };
-    nixpkgs.overlays = [
-      inputs.apple-silicon.overlays.apple-silicon-overlay
-    ];
     services.udev.extraRules = ''
       KERNEL=="macsmc-battery", SUBSYSTEM=="power_supply", ATTR{charge_control_end_threshold}="90", ATTR{charge_control_start_threshold}="85"
     '';
