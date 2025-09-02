@@ -18,7 +18,7 @@ in
       '';
     };
     firmware = lib.mkOption {
-      type = lib.types.everything;
+      type = lib.types.nullOr lib.types.path;
       default = null;
       description = ''
         path to directory of the firmware
