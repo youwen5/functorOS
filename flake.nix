@@ -2,8 +2,8 @@
   description = "System configuration flake.";
 
   inputs = {
-    nixpkgs.url = "github.com:nixos/nixpkgs/4dd107af08fd31510f3de9417617ad1d0726e211";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github.com:nixos/nixpkgs/4dd107af08fd31510f3de9417617ad1d0726e211";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # stablepkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     # bleedingpkgs.url = "github:nixos/nixpkgs/master";
     # nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
