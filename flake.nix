@@ -109,7 +109,6 @@
               inputs.stylix.nixosModules.stylix
               inputs.agenix.nixosModules.age
               inputs.musnix.nixosModules.musnix
-              inputs.asahi.overlays.apple-silicon-overlay
               ./modules/default.nix
               ./overlays
               (
@@ -123,6 +122,7 @@
                     (final: prev: {
                       zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
                     })
+                    inputs.asahi.overlays.apple-silicon-overlay
                   ];
                   # instead of using ragenix from agenix which builds from
                   # source, use ragenix packaged in nixpkgs
