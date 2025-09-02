@@ -38,8 +38,6 @@
       flake = false;
     };
 
-    ucode.url = "github:e-tho/ucodenix";
-
     apple-silicon = {
       # url = "github:zzywysm/nixos-asahi";
       url = "github:nix-community/nixos-apple-silicon";
