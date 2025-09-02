@@ -9,7 +9,7 @@ let
   cfg = config.functorOS.extras.gaming;
 in
 {
-  options.functorOS.extras.asahi = {
+  options.functorOS.system.asahi = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
