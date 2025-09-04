@@ -13,7 +13,7 @@ in
       type = lib.types.bool;
       default = config.functorOS.desktop.enable;
       description = ''
-        Whether to enable and set up tui-greet, the default greeter for functorOS.
+        Whether to enable and set up ly, the default greeter for functorOS.
       '';
     };
     command = lib.mkOption {
@@ -26,28 +26,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.greetd = {
+    # from https://github.com/NixOS/nixpkgs/pull/297434#issuecomment-2348783988
+    systemd.services.display-manager.environment.XDG_CURRENT_DESKTOP = "X-NIXOS-SYSTEMD-AWARE";
+    services.displayManager.ly = {
       enable = true;
+      x11Support = false;
       settings = {
-        default_session = {
-          command = ''
-            ${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland --remember --asterisks --greeting "Welcome, generation $(readlink /nix/var/nix/profiles/system | grep -o '[0-9]*'). Access is restricted to authorized personnel only."
-          '';
-          user = "greeter";
-        };
+        animation = "colormix";
+        vi_mode = false;
+        colormix_col1 = "0x00${config.lib.stylix.colors.base00}";
+        colormix_col2 = "0x00${config.lib.stylix.colors.base0F}";
+        colormix_col3 = "0x00${config.lib.stylix.colors.base08}";
       };
-    };
-
-    systemd.services.greetd.serviceConfig = {
-      Type = "idle";
-      StandardInput = "tty";
-      StandardOutput = "tty";
-      StandardError = "journal"; # Without this errors will spam on screen
-      # Without these bootlogs will spam on screen
-      TTYReset = true;
-      TTYVHangup = true;
-      TTYVTDisallocate = true;
     };
   };
 }
-

@@ -105,22 +105,25 @@ in
         "$Right" = "L";
         "$Up" = "K";
         "$Down" = "J";
-        env =
-          (lib.optionals cfg.gtkUseOpenGL [
-            "GSK_RENDERER,ngl"
-          ])
-          ++ (lib.optionals (config.functorOS.formFactor == "laptop" && !osConfig.functorOS.theming.enable) [
-            "HYPRCURSOR_THEME,Bibata-Modern-Ice"
-            "HYPRCURSOR_SIZE,24"
-            "XCURSOR_THEME,Bibata-Modern-Ice"
-            "XCURSOR_SIZE,24"
-          ])
-          ++ (lib.optionals (config.functorOS.formFactor == "desktop" && !osConfig.functorOS.theming.enable) [
-            "HYPRCURSOR_THEME,Bibata-Modern-Ice"
-            "HYPRCURSOR_SIZE,26"
-            "XCURSOR_THEME,Bibata-Modern-Ice"
-            "XCURSOR_SIZE,26"
-          ]);
+        env = [
+          # mitigates warning message due to ly workaround
+          "XDG_CURRENT_DESKTOP,Hyprland"
+        ]
+        ++ (lib.optionals cfg.gtkUseOpenGL [
+          "GSK_RENDERER,ngl"
+        ])
+        ++ (lib.optionals (config.functorOS.formFactor == "laptop" && !osConfig.functorOS.theming.enable) [
+          "HYPRCURSOR_THEME,Bibata-Modern-Ice"
+          "HYPRCURSOR_SIZE,24"
+          "XCURSOR_THEME,Bibata-Modern-Ice"
+          "XCURSOR_SIZE,24"
+        ])
+        ++ (lib.optionals (config.functorOS.formFactor == "desktop" && !osConfig.functorOS.theming.enable) [
+          "HYPRCURSOR_THEME,Bibata-Modern-Ice"
+          "HYPRCURSOR_SIZE,26"
+          "XCURSOR_THEME,Bibata-Modern-Ice"
+          "XCURSOR_SIZE,26"
+        ]);
         layerrule = [
           "blur,rofi"
           "ignorezero,rofi"

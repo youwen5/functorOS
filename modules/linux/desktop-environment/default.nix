@@ -32,7 +32,9 @@ in
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
 
-    programs.hyprland.enable = cfg.hyprland.enable;
+    programs.hyprland = lib.mkIf cfg.hyprland.enable {
+      enable = true;
+    };
 
     programs.niri.enable = cfg.niri.enable;
 
