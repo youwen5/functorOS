@@ -36,7 +36,7 @@ in
         vi_mode = false;
         colormix_col1 = "0x00${config.lib.stylix.colors.base00}";
         colormix_col2 = "0x00${config.lib.stylix.colors.base0F}";
-        colormix_col3 = "0x00${config.lib.stylix.colors.base08}";
+        colormix_col3 = "0x00${config.lib.stylix.colors.base07}";
       };
     };
   };
