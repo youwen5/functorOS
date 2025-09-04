@@ -136,7 +136,7 @@
           default = functorOS;
           functorOS = {
             imports = [
-              inputs.nix-index-database.hmModules.nix-index
+              inputs.nix-index-database.homeModules.nix-index
               inputs.spicetify.homeManagerModules.default
               inputs.agenix.homeManagerModules.age
               ./hm/modules/default.nix
