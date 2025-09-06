@@ -38,17 +38,6 @@
       flake = false;
     };
 
-    apple-silicon = {
-      # url = "github:zzywysm/nixos-asahi";
-      url = "github:nix-community/nixos-apple-silicon";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    apple-firmware = {
-      url = "github:youwen5/apple-firmware";
-      flake = false;
-    };
-
     spicetify = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
