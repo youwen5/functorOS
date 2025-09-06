@@ -16,11 +16,11 @@ in
         Whether to enable core functorOS system utilities and configurations (such as security policies, Nix options, etc)
       '';
     };
-    replaceSudoWithDoas = lib.mkOption {
+    replaceSudoWithRun0 = lib.mkOption {
       type = lib.types.bool;
       default = cfg.enable;
       description = ''
-        Whether to replace sudo with doas, the Dedicated OpenBSD Application Subexecutor. Doas is the preferred functorOS setuid program.
+        Whether to replace fully sudo with systemd-run0, systemd's replacement for sudo. Unlike sudo, sudo-rs, or doas (dedicated openbsd application subexecutor), run0 is not a setuid program and relies solely on existing polkit privilege escalation infrastructure, reducing attack surface of the machine.
       '';
     };
     waylandFixes = lib.mkOption {
@@ -91,7 +91,6 @@ in
       ++ [
         config.functorOS.defaultEditor
       ]
-      ++ lib.optionals cfg.replaceSudoWithDoas [ pkgs.doas-sudo-shim ]
       ++ lib.optionals cfg.uutils.enable [
         (lib.hiPrio pkgs.uutils-coreutils-noprefix)
       ];
@@ -101,22 +100,8 @@ in
       NIXOS_OZONE_WL = "1";
     };
 
-    security = {
-      sudo.enable = !cfg.replaceSudoWithDoas;
-
-      doas = lib.mkIf cfg.replaceSudoWithDoas {
-        enable = true;
-        extraRules = [
-          {
-            users = builtins.map (x: x.username) (builtins.filter (x: x.superuser) config.functorOS._users);
-            keepEnv = true;
-            persist = true;
-          }
-        ];
-      };
-
-      rtkit.enable = true;
-    };
+    security.polkit.persistentAuthentication = cfg.replaceSudoWithRun0;
+    security.run0-sudo-shim.enable = cfg.replaceSudoWithRun0;
 
     services.gnome.gnome-keyring.enable = true;
 

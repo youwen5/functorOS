@@ -80,6 +80,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    run0-sudo-shim = {
+      url = "github:LordGrimmauld/run0-sudo-shim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -104,6 +110,7 @@
               inputs.stylix.nixosModules.stylix
               inputs.agenix.nixosModules.age
               inputs.musnix.nixosModules.musnix
+              inputs.run0-sudo-shim.nixosModules.default
               ./modules/default.nix
               ./overlays
               (
