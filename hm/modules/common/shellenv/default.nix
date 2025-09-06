@@ -77,6 +77,8 @@ in
         plugins = with pkgs.nushellPlugins; [ polars ];
       };
 
+    programs.onibotoke.enable = true;
+
     programs.fzf = {
       enable = true;
     };
@@ -175,36 +177,35 @@ in
         fish_vi_key_bindings
         set -g fish_greeting
       '';
-      plugins =
-        [
-          {
-            name = "autopair";
-            src = pkgs.fishPlugins.autopair.src;
-          }
-          {
-            name = "fzf";
-            src = pkgs.fishPlugins.fzf.src;
-          }
-          {
-            name = "done";
-            src = pkgs.fishPlugins.done.src;
-          }
-          {
-            name = "sponge";
-            src = pkgs.fishPlugins.sponge.src;
-          }
-        ]
-        ++ lib.optionals config.programs.zoxide.enable [
-          {
-            name = "zoxide.fish";
-            src = pkgs.fetchFromGitHub {
-              owner = "icezyclon";
-              repo = "zoxide.fish";
-              rev = "a6dabb16dd2de570a2005617ea4510f0beb6dc53";
-              hash = "sha256-aGajwgFdB+wtjyryD/EQXSQ3SCFKwDJFjaZjLiJHt3E=";
-            };
-          }
-        ];
+      plugins = [
+        {
+          name = "autopair";
+          src = pkgs.fishPlugins.autopair.src;
+        }
+        {
+          name = "fzf";
+          src = pkgs.fishPlugins.fzf.src;
+        }
+        {
+          name = "done";
+          src = pkgs.fishPlugins.done.src;
+        }
+        {
+          name = "sponge";
+          src = pkgs.fishPlugins.sponge.src;
+        }
+      ]
+      ++ lib.optionals config.programs.zoxide.enable [
+        {
+          name = "zoxide.fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "icezyclon";
+            repo = "zoxide.fish";
+            rev = "a6dabb16dd2de570a2005617ea4510f0beb6dc53";
+            hash = "sha256-aGajwgFdB+wtjyryD/EQXSQ3SCFKwDJFjaZjLiJHt3E=";
+          };
+        }
+      ];
     };
 
     programs.nix-index = {
@@ -264,3 +265,4 @@ in
     programs.zathura.enable = true;
   };
 }
+

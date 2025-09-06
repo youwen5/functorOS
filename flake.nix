@@ -74,6 +74,12 @@
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    onibotoke = {
+      url = "github:youwen5/onibotoke";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -128,6 +134,7 @@
               inputs.nix-index-database.homeModules.nix-index
               inputs.spicetify.homeManagerModules.default
               inputs.agenix.homeManagerModules.age
+              inputs.onibotoke.homeManagerModules.default
               ./hm/modules/default.nix
             ];
           };
