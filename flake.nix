@@ -77,7 +77,7 @@
 
     onibotoke = {
       url = "github:youwen5/onibotoke";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
 
