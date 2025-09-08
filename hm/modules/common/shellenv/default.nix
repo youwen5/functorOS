@@ -46,7 +46,7 @@ in
             ./config.nu
           else
             pkgs.runCommand "config-old.nu" { } ''
-              cp ${./config.nu} $out && sed 's/--optional/--ignore-errors/' $out
+              sed 's/--optional/--ignore-errors/' ${./config.nu} > $out
             '';
         settings = {
           show_banner = false;
@@ -271,4 +271,3 @@ in
     programs.zathura.enable = true;
   };
 }
-
