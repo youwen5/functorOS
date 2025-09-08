@@ -41,7 +41,13 @@ in
       in
       {
         enable = true;
-        configFile.source = ./config.nu;
+        configFile.source =
+          if lib.versionAtLeast pkgs.nushell.version "0.106.0" then
+            ./config.nu
+          else
+            pkgs.runCommand "config-old.nu" { } ''
+              cp ${./config.nu} $out && sed 's/--optional/--ignore-errors/' $out
+            '';
         settings = {
           show_banner = false;
           completions.external = {
