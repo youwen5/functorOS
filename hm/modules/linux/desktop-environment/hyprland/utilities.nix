@@ -34,7 +34,6 @@ in
 
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
       terminal = "${lib.getExe pkgs.kitty}";
       theme =
         let
@@ -181,3 +180,4 @@ in
     };
   };
 }
+
