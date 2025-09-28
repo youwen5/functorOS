@@ -3,6 +3,7 @@
   lib,
   pkgs,
   osConfig,
+  inputs,
   ...
 }:
 let
@@ -73,6 +74,10 @@ in
           def --env --wrapped z [...rest: string@"nu-complete zoxide path"] {
             __zoxide_z ...$rest
           }
+
+          $env.config.hooks.command_not_found = source ${
+            inputs.nix-index-database.packages.${pkgs.stdenv.hostPlatform.system}.nix-index
+          }/etc/profile.d/command-not-found.nu
         '';
         plugins = with pkgs.nushellPlugins; [ polars ];
       };
