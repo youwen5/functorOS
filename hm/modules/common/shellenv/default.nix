@@ -3,7 +3,7 @@
   lib,
   pkgs,
   osConfig,
-  inputs,
+  functorOSInputs,
   ...
 }:
 let
@@ -75,9 +75,7 @@ in
             __zoxide_z ...$rest
           }
 
-          $env.config.hooks.command_not_found = source ${
-            inputs.nix-index-database.packages.${pkgs.stdenv.hostPlatform.system}.nix-index
-          }/etc/profile.d/command-not-found.nu
+          $env.config.hooks.command_not_found = source ${pkgs.nix-index-unwrapped}/etc/profile.d/command-not-found.nu
         '';
         plugins = with pkgs.nushellPlugins; [ polars ];
       };
