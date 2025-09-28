@@ -54,6 +54,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index = {
+      url = "github:nix-community/nix-index";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix = {
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -118,7 +123,8 @@
                 {
                   home-manager.extraSpecialArgs = {
                     spicepkgs = inputs.spicetify.legacyPackages.${pkgs.system};
-                    inherit inputs self;
+                    functorOSInputs = inputs;
+                    inherit self;
                   };
                   nixpkgs.overlays = [
                     (final: prev: {

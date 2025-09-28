@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   ...
@@ -18,3 +17,4 @@ in
     useWindowsDriver = true;
   };
 }
+

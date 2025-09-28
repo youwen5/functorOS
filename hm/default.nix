@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   ...
@@ -22,3 +21,4 @@ in
     backupFileExtension = "backup";
   };
 }
+

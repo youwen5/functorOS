@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   config,
   lib,
   ...
@@ -100,3 +99,4 @@ in
     home.sessionVariables.DEFAULT_BROWSER = lib.getExe cfg.defaultBrowser;
   };
 }
+

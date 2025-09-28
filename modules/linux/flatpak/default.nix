@@ -3,7 +3,6 @@
 # persist between generations. This is not ideal, but at least it is a better
 # situation than imperative installation
 {
-  inputs,
   config,
   lib,
   ...
@@ -49,3 +48,4 @@ in
     };
   };
 }
+

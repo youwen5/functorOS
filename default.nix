@@ -13,7 +13,10 @@ rec {
       configuration,
     }:
     nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit self inputs; };
+      specialArgs = {
+        inherit self inputs;
+        functorOSInputs = functorOS.inputs;
+      };
       modules = [
         functorOS.nixosModules.functorOS
         configuration
