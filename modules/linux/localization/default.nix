@@ -22,16 +22,18 @@ in
     };
   };
 
-  config = lib.mkIf cfg.chinese.input.enable {
+  config = {
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";
       fcitx5.waylandFrontend = true;
-      fcitx5.addons = with pkgs; [
-        fcitx5-gtk
-        fcitx5-chinese-addons
-        fcitx5-tokyonight
-      ];
+      fcitx5.addons =
+        (with pkgs; [
+          fcitx5-gtk
+          fcitx5-tokyonight
+        ])
+        ++ lib.optionals cfg.chinese.input.enable [ pkgs.fcitx5-chinese-addons ];
+
       fcitx5.settings.globalOptions = {
         Hotkey = {
           # Enumerate when press trigger key repeatedly
@@ -117,7 +119,7 @@ in
           # Layout
           "Default Layout" = "us";
           # Default Input Method
-          DefaultIM = "pinyin";
+          DefaultIM = lib.mkIf cfg.chinese.input.enable "pinyin";
         };
         "Groups/0/Items/0" = {
           # Name
@@ -126,7 +128,7 @@ in
           Layout = "";
         };
 
-        "Groups/0/Items/1" = {
+        "Groups/0/Items/1" = lib.mkIf cfg.chinese.input.enable {
           # Name
           Name = "pinyin";
           # Layout
@@ -141,3 +143,4 @@ in
     };
   };
 }
+
