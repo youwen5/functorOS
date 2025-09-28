@@ -24,6 +24,7 @@ in
         "full"
         "minimal"
         "laptop"
+        "compact"
       ];
       default = if osConfig.functorOS.formFactor == "laptop" then "laptop" else "full";
     };
@@ -39,15 +40,15 @@ in
         reload_style_on_change = true;
         position = "top";
         layer = "top";
-        height = 37;
-        margin-top = 8;
+        height = if cfg.variant == "compact" then 30 else 37;
+        margin-top = if cfg.variant == "compact" then 0 else 8;
         margin-bottom = 0;
-        margin-left = 8;
-        margin-right = 8;
+        margin-left = if cfg.variant == "compact" then 0 else 8;
+        margin-right = if cfg.variant == "compact" then 0 else 8;
         modules-left = [
           "custom/launcher"
         ]
-        ++ (lib.optionals (cfg.variant != "laptop") [
+        ++ (lib.optionals (cfg.variant != "laptop" && cfg.variant != "compact") [
           "custom/playerctl#backward"
           "custom/playerctl#play"
           "custom/playerctl#forward"
@@ -55,7 +56,7 @@ in
         ++ [
           "idle_inhibitor"
         ]
-        ++ (lib.optionals (cfg.variant == "laptop") [
+        ++ (lib.optionals (cfg.variant == "laptop" || cfg.variant == "compact") [
           "hyprland/workspaces"
         ])
         ++ (lib.optionals (cfg.variant == "minimal") [
@@ -64,7 +65,7 @@ in
         ++ [
           "custom/playerlabel"
         ];
-        modules-center = lib.mkIf (cfg.variant != "laptop") (
+        modules-center = lib.mkIf (cfg.variant != "laptop" && cfg.variant != "compact") (
           (lib.optionals (cfg.variant == "full") [
             "cava#left"
           ])
@@ -309,19 +310,20 @@ in
               b = c."${color}-rgb-b";
             in
             "rgba(${r}, ${g}, ${b}, ${opacity})";
+          compact = cfg.variant == "compact";
         in
         ''
           * {
             border: none;
             border-radius: 0px;
             font-family: GeistMono Nerd Font;
-            font-size: 13px;
+            font-size: ${if compact then "12px" else "13px"};
             min-height: 0;
           }
           window#waybar {
             background: transparent;
             opacity: 0.9;
-            border-radius: 24px;
+            ${if compact then "" else "border-radius: 24px;"}
           }
 
           #waybar > box {
@@ -395,18 +397,22 @@ in
           #clock {
               color: #${palette.base05};
               background: #${palette.base00};
-              border-radius: 18px 12px 12px 18px;
-              padding: 8px 25px 8px 25px;
+              ${
+                if compact then "border-radius: 18px 0px 0px 18px;" else "border-radius: 18px 12px 12px 18px;"
+              }
+              ${if compact then "padding: 6px 20px 6px 20px;" else "padding: 8px 25px 8px 25px;"}
               margin-left: 7px;
               font-weight: bold;
-              font-size: 14px;
+              font-size: ${if compact then "13px" else "14px"};
           }
           #custom-launcher {
               color: #${palette.base0A};
               background: #${palette.base00};
-              border-radius: 12px 18px 18px 12px;
+              ${
+                if compact then "border-radius: 0px 18px 18px 0px;" else "border-radius: 12px 18px 18px 12px;"
+              }
               margin: 0px;
-              padding: 0px 35px 0px 25px;
+              ${if compact then "padding: 0px 30px 0px 20px;" else "padding: 0px 35px 0px 25px;"}
               font-size: 24px;
           }
 
@@ -475,7 +481,7 @@ in
               font-style: normal;
           }
         ''
-        + (lib.optionalString (cfg.variant == "laptop") ''
+        + (lib.optionalString (cfg.variant == "laptop" || cfg.variant == "compact") ''
           #workspaces {
             margin: 4px;
             padding: 6px 16px;
@@ -485,7 +491,7 @@ in
             border-width: 2px;
           }
         '')
-        + (lib.optionalString (cfg.variant != "laptop") ''
+        + (lib.optionalString (cfg.variant != "laptop" && cfg.variant != "compact") ''
           #workspaces {
             margin: 4px 5px;
             padding: 6px 5px;
