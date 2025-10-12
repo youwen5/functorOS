@@ -12,9 +12,9 @@ let
   functorOSImage =
     if osConfig.functorOS.theming.enable then
       if (osConfig.stylix.polarity == "dark") then
-        ../../../../../assets/functoros-dark.png
+        "${pkgs.functor-systems-icons}/icons/500x500/functor-systems-dark.png"
       else
-        ../../../../../assets/functoros.png
+        "${pkgs.functor-systems-icons}/icons/500x500/functor-systems-light.png"
     else
       null;
 in

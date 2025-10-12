@@ -90,9 +90,9 @@ in
         logoAnimated = false;
         logo =
           if (config.stylix.polarity == "dark") then
-            ../../../assets/functoros-dark.png
+            "${pkgs.functor-systems-icons}/icons/256x256/functor-systems-dark.png"
           else
-            ../../../assets/functoros.png;
+            "${pkgs.functor-systems-icons}/icons/256x256/functor-systems-light.png";
       };
     };
 
