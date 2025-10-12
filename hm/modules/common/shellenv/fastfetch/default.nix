@@ -11,7 +11,10 @@ let
   useFunctorOSImage = osConfig.functorOS.system.core.customOSName;
   functorOSImage =
     if osConfig.functorOS.theming.enable then
-      if (osConfig.stylix.polarity == "dark") then ./functoros-dark.png else ./functoros.png
+      if (osConfig.stylix.polarity == "dark") then
+        ../../../../../assets/functoros-dark.png
+      else
+        ../../../../../assets/functoros.png
     else
       null;
 in
@@ -69,4 +72,3 @@ in
       );
     };
 }
-

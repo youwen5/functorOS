@@ -99,4 +99,3 @@ in
     home.sessionVariables.DEFAULT_BROWSER = lib.getExe cfg.defaultBrowser;
   };
 }
-

@@ -10,4 +10,3 @@
       config.lib.file.mkOutOfStoreSymlink "${osConfig.functorOS.flakeLocation}/hm/modules/linux/var/mangohud/MangoHud.conf";
   };
 }
-
