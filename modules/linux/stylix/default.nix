@@ -84,6 +84,16 @@ in
         name = "Bibata-Modern-Ice";
         size = if config.functorOS.formFactor == "laptop" then 24 else 26;
       };
+
+      targets.plymouth = {
+        enable = true;
+        logoAnimated = false;
+        logo =
+          if (config.stylix.polarity == "dark") then
+            ../../../assets/functoros-dark.png
+          else
+            ../../../assets/functoros.png;
+      };
     };
 
     boot = {
@@ -109,3 +119,4 @@ in
 
   };
 }
+
