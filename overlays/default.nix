@@ -23,6 +23,15 @@ in
           };
         }
       );
+      hyprutils = prev.hyprutils.overrideAttrs (finalAttrs: {
+        version = "0.10.0";
+        src = prev.fetchFromGitHub {
+          owner = "hyprwm";
+          repo = "hyprutils";
+          tag = "v${finalAttrs.version}";
+          hash = "sha256-FWB9Xe9iIMlUskfLzKlYH3scvnHpSC5rMyN1EDHUQmE=";
+        };
+      });
     })
   ];
 }
