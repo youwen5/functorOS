@@ -2,7 +2,7 @@
   lib,
   runCommand,
   nixosOptionsDoc,
-  neovim,
+  pkgs,
   hash,
   ...
 }:
@@ -12,9 +12,7 @@ let
     modules = [ ../modules/default.nix ];
     check = false;
     specialArgs = {
-      pkgs = {
-        inherit neovim;
-      };
+      inherit pkgs;
     };
   };
   # generate our docs
