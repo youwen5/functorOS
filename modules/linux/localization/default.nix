@@ -32,7 +32,7 @@ in
           fcitx5-gtk
           fcitx5-tokyonight
         ])
-        ++ lib.optionals cfg.chinese.input.enable [ pkgs.fcitx5-chinese-addons ];
+        ++ lib.optionals cfg.chinese.input.enable [ pkgs.qt6Packages.fcitx5-chinese-addons ];
 
       fcitx5.settings.globalOptions = {
         Hotkey = {

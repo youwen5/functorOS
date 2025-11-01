@@ -95,7 +95,7 @@ in
         ]
         ++ (lib.optionals (!config.functorOS.theming.enable) [
           noto-fonts
-          noto-fonts-emoji
+          noto-fonts-color-emoji
           nerd-fonts.caskaydia-cove
         ]);
     };
