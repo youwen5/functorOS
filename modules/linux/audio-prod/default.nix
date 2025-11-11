@@ -7,7 +7,7 @@
 let
   cfg = config.functorOS.system.audio.prod;
   forAllUsers = lib.genAttrs cfg.realtimeAudioUsers;
-  wine = pkgs.wineWowPackages.full;
+  wine = pkgs.wineWowPackages.unstableFull;
   overrideWine =
     package:
     (package.override {
