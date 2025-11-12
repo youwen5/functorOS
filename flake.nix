@@ -127,13 +127,13 @@
                 { pkgs, ... }:
                 {
                   home-manager.extraSpecialArgs = {
-                    spicepkgs = inputs.spicetify.legacyPackages.${pkgs.system};
+                    spicepkgs = inputs.spicetify.legacyPackages.${pkgs.stdenv.hostPlatform.system};
                     functorOSInputs = inputs;
                     inherit self;
                   };
                   nixpkgs.overlays = [
                     (final: prev: {
-                      zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
+                      zen-browser = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
                     })
                   ];
                   # instead of using ragenix from agenix which builds from

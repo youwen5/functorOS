@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (pkgs) system;
+  inherit (pkgs.stdenv.hostPlatform) system;
 in
 # stablepkgs = inputs.stablepkgs.legacyPackages.${pkgs.system};
 {
