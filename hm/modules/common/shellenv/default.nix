@@ -88,10 +88,10 @@ in
 
     programs.git = {
       enable = true;
-      userName = lib.mkDefault "functorOS user";
-      userEmail = lib.mkDefault "functorOS@localhost";
       maintenance.enable = true;
-      extraConfig = {
+      settings = {
+        user.name = lib.mkDefault "functorOS user";
+        user.email = lib.mkDefault "functorOS@localhost";
         init.defaultBranch = "main";
         safe.directory = lib.mkIf (
           osConfig.functorOS.flakeLocation != null

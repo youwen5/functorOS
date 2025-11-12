@@ -68,9 +68,9 @@ rec {
           home = {
             inherit username homeDirectory;
           };
-          programs.git = nixpkgs.lib.mkIf configureGitUser {
-            userName = fullName;
-            userEmail = email;
+          programs.git.settings = nixpkgs.lib.mkIf configureGitUser {
+            user.name = fullName;
+            user.email = email;
           };
         };
       };
