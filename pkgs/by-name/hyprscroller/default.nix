@@ -27,13 +27,13 @@ let
 in
 mkHyprlandPlugin hyprland {
   pluginName = "hyprscroller";
-  version = "0-unstable-2025-09-28";
+  version = "0-unstable-2025-11-11";
 
   src = fetchFromGitHub {
     owner = "cpiber";
     repo = "hyprscroller";
-    rev = "01a10147fe0a86e35674b7e8be68fd8a38c7445f";
-    hash = "sha256-U6zSA2vhKdRIy+VmS0jVba/Xv8Abf58YeI9P5Y3K/yk=";
+    rev = "a5843b9201dc0728e745310e9f685c797565ba8b";
+    hash = "sha256-aAbHgf2Rp2IUospRjdsSFQF5ieeqq8yqJYv76zqD1Pk=";
   };
 
   nativeBuildInputs = [ cmake ];
