@@ -90,7 +90,6 @@ in
       enable = true;
       userName = lib.mkDefault "functorOS user";
       userEmail = lib.mkDefault "functorOS@localhost";
-      delta.enable = true;
       maintenance.enable = true;
       extraConfig = {
         init.defaultBranch = "main";
@@ -98,6 +97,11 @@ in
           osConfig.functorOS.flakeLocation != null
         ) osConfig.functorOS.flakeLocation;
       };
+    };
+
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
 
     home.packages = [ pkgs.git-absorb ];
