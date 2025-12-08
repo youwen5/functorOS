@@ -54,10 +54,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nix-index = {
-    #   url = "github:nix-community/nix-index";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    nix-index = {
+      url = "github:nix-community/nix-index";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix = {
       url = "github:yaxitech/ragenix";
