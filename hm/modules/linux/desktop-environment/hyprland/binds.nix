@@ -13,8 +13,8 @@ in
     bind = [
       "$mod+Shift, $Left, layoutmsg, swapcol l"
       "$mod+Shift, $Right, layoutmsg, swapcol r"
-      "$mod+Shift, $Up, layoutmsg, movewindow u"
-      "$mod+Shift, $Down, layoutmsg, movewindow d"
+      "$mod+Shift, $Up, movewindow, u"
+      "$mod+Shift, $Down, movewindow, d"
 
       # Move around
       "$mod, $Left, layoutmsg, focus l"
