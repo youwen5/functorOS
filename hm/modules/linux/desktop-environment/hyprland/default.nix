@@ -91,7 +91,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      plugins = [ pkgs.hyprlandPlugins.hyprscroller ];
+      plugins = [ pkgs.hyprlandPlugins.hyprscrolling ];
       settings = {
         exec-once = [
           "hyprctl dispatch workspace 100000"
