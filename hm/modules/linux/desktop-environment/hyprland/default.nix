@@ -182,7 +182,7 @@ in
             # "col.inactive_border" = pkgs.lib.mkForce "rgba(b4befecc) rgba(6c7086cc) 45deg";
             "col.active_border" = "rgba(${colors.base0A}ff) rgba(${colors.base09}ff) 45deg";
             "col.inactive_border" = "rgba(${colors.base01}cc) rgba(${colors.base02}cc) 45deg";
-            layout = "scroller";
+            layout = "scrolling";
             resize_on_border = "true";
           };
 
@@ -214,9 +214,10 @@ in
         input = {
           sensitivity = if config.functorOS.formFactor == "laptop" then "0.0" else "-0.65";
         };
-        plugin.scroller = {
-          column_widths = "onethird onehalf twothirds one";
-          column_heights = "onethird onehalf twothirds one";
+        plugin.hyprscrolling = {
+          explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
+          fullscreen_on_one_column = true;
+          focus_fit_method = "1";
         };
         experimental.xx_color_management_v4 = true;
       };

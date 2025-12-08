@@ -11,22 +11,23 @@ in
 {
   wayland.windowManager.hyprland.settings = lib.mkIf cfg.enable {
     bind = [
-      "$mod+Shift, $Left, scroller:movewindow, l"
-      "$mod+Shift, $Right, scroller:movewindow, r"
-      "$mod+Shift, $Up, scroller:movewindow, u"
-      "$mod+Shift, $Down, scroller:movewindow, d"
+      "$mod+Shift, $Left, layoutmsg, swapcol l"
+      "$mod+Shift, $Right, layoutmsg, swapcol r"
+      "$mod+Shift, $Up, layoutmsg, movewindow u"
+      "$mod+Shift, $Down, layoutmsg, movewindow d"
 
       # Move around
-      "$mod, $Left, scroller:movefocus, l"
-      "$mod, $Right, scroller:movefocus, r"
-      "$mod, $Up, scroller:movefocus, u"
-      "$mod, $Down, scroller:movefocus, d"
-      "$mod, comma, scroller:admitwindow"
-      "$mod, period, scroller:expelwindow"
-      "$mod, F, scroller:fitsize, active"
-      "$mod, Y, scroller:fitsize, all"
-      "$mod, semicolon, scroller:cyclesize, next"
-      "$mod, apostrophe, scroller:cyclesize, previous"
+      "$mod, $Left, layoutmsg, focus l"
+      "$mod, $Right, layoutmsg, focus r"
+      "$mod, $Up, layoutmsg, focus u"
+      "$mod, $Down, layoutmsg, focus d"
+      "$mod, comma, layoutmsg, movewindowto l"
+      "$mod, period, layoutmsg, movewindowto r"
+      "$mod, F, layoutmsg, fit active"
+      "$mod, Y, layoutmsg, fit visible"
+      "$mod, semicolon, layoutmsg, colresize -conf"
+      "$mod, apostrophe, layoutmsg, colresize +conf"
+      "$mod, slash, layoutmsg, promote"
 
       "$mod+Shift, U, exec, ${hyprnome} --move"
       "$mod+Shift, I, exec, ${hyprnome} --previous --move"
@@ -34,11 +35,12 @@ in
       "$mod, U, exec, ${hyprnome}"
       "$mod, I, exec, ${hyprnome} --previous"
 
-      "$mod, C, scroller:setmode, c"
-      "$mod, V, scroller:setmode, r"
+      "$mod, C, layoutmsg, togglefit"
+      # "$mod, C, scroller:setmode, c"
+      # "$mod, V, scroller:setmode, r"
 
-      "$mod, G, scroller:jump"
-      "$mod+Ctrl, G, scroller:toggleoverview"
+      # "$mod, G, scroller:jump"
+      # "$mod+Ctrl, G, scroller:toggleoverview"
       # Window actions
       "$mod, Q, killactive"
       "$mod, W, togglefloating"
