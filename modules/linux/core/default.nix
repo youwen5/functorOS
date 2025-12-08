@@ -147,7 +147,7 @@ in
       distroId = "functoros";
       vendorName = "functor.systems";
       vendorId = "functorsystems";
-      codeName = "Spivak";
+      codeName = "Zardini";
     };
 
     programs.nh = lib.mkIf cfg.useNh {
