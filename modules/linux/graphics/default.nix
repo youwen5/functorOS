@@ -45,7 +45,11 @@ in
       powerManagement.enable = true;
       powerManagement.finegrained = false;
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package =
+        if (lib.versionAtLeast config.boot.kernelPackages.nvidiaPackages.latest.version "590.44.01") then
+          config.boot.kernelPackages.nvidiaPackages.latest
+        else
+          config.boot.kernelPackages.nvidiaPackages.beta;
       nvidiaSettings = true;
     };
 
