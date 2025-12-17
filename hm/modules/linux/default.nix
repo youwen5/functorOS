@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ./var/easyeffects
+    ./audio
     ./programs
     ./spicetify
     ./desktop-environment
