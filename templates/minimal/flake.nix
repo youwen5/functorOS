@@ -188,6 +188,10 @@
                 # Set to either "laptop" or "desktop" for some adjustments
                 formFactor = "desktop";
 
+                # Set to true to use the GeoClue2 geolocation daemon to provide
+                # various location-based QoL features like automatic timezone switching
+                locationServices.enable = false;
+
                 # Set a wallpaper to whatever you want! You can use a local path as well.
                 # The colorscheme for the system is automatically generated from this
                 # wallpaper!
