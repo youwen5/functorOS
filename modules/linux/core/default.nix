@@ -198,16 +198,22 @@ in
     systemd.services.updateTimezone = {
       description = "Automatically update timezone using `timedatectl` and `tzupdate`";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network-online.target"
-        "NetworkManager-wait-online.service"
-      ];
-      requires = [
-        "network-online.target"
-        "NetworkManager-wait-online.service"
-      ];
       script = ''
-        timedatectl set-timezone $("${pkgs.tzupdate}/bin/tzupdate" -p)
+        for i in $(seq 1 20); do
+          if ${pkgs.iputils}/bin/ping -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then
+            timedatectl set-timezone "$(${pkgs.tzupdate}/bin/tzupdate -p)"
+            exit 0
+          fi
+          sleep 5
+        done
+      '';
+    };
+    systemd.user.services.updateTimezone = {
+      description = "Update timezone on login";
+      wantedBy = [ "default.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        timedatectl set-timezone "$(${pkgs.tzupdate}/bin/tzupdate -p)"
       '';
     };
 
