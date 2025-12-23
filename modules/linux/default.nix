@@ -16,6 +16,7 @@
     ./wsl
     ./graphics
     ./localization
+    ./location-services
   ];
 
   options.functorOS.enable = lib.mkOption {
