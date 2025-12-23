@@ -198,8 +198,14 @@ in
     systemd.services.updateTimezone = {
       description = "Automatically update timezone using `timedatectl` and `tzupdate`";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      requires = [ "network-online.target" ];
+      after = [
+        "network-online.target"
+        "NetworkManager-wait-online.service"
+      ];
+      requires = [
+        "network-online.target"
+        "NetworkManager-wait-online.service"
+      ];
       script = ''
         timedatectl set-timezone $("${pkgs.tzupdate}/bin/tzupdate" -p)
       '';
