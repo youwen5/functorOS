@@ -192,6 +192,18 @@ in
       enable = true;
       powerOnBoot = true;
     };
+    
+    # Set time zone automatically and sync with network time
+    services.timesyncd.enable = true;
+    systemd.services.updateTimezone = {
+      description = "Automatically update timezone using `timedatectl` and `tzupdate`";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
+      script = ''
+        timedatectl set-timezone $("${pkgs.tzupdate}/bin/tzupdate" -p)
+      '';
+    };
 
     services.blueman.enable = lib.mkIf cfg.bluetooth.enable true;
 
