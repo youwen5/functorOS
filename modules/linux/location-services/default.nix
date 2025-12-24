@@ -26,7 +26,11 @@ in
       type = lib.types.bool;
       default = cfg.enable;
       description = ''
-        Whether to enable the underlying geoclue2 location backend. Note this MUST be enabled for other locationServices options to work, BUT you generally don't have to touch it as setting a blanket `locationServices.enable = true` is usually the right thing for most users and will enable this.
+        Whether to enable the underlying geoclue2 location backend. Note this
+        MUST be enabled for other locationServices options to work, BUT you
+        generally don't have to touch it as setting a blanket
+        `locationServices.enable = true` is usually the right thing for most
+        users and will enable this.
       '';
     };
   };
