@@ -30,9 +30,13 @@ in
       '';
     };
   };
-  config = {
-    services.geoclue2.enable = cfg.locationBackend.enable;
-    services.automatic-timezoned.enable = cfg.autoTimezone.enable;
-    time.timeZone = lib.mkIf cfg.autoTimezone.enable (lib.mkForce null);
-  };
+  config = lib.mkMerge [
+    (lib.mkIf cfg.locationBackend.enable {
+      services.geoclue2.enable = true;
+    })
+    (lib.mkIf cfg.autoTimezone.enable {
+      services.automatic-timezoned.enable = true;
+      time.timeZone = lib.mkForce null;
+    })
+  ];
 }
