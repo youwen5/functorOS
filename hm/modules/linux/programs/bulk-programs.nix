@@ -146,9 +146,9 @@ in
             nicotine-plus # soulseek client
             gapless # music player
             loupe # image viewer
+            bitwarden-desktop # password manager
           ]
           ++ lib.optionals pkgs.stdenv.targetPlatform.isx86_64 [
-            bitwarden-desktop
             sbctl
           ]
           ++ lib.optionals pkgs.stdenv.targetPlatform.isAarch64 [ ]
