@@ -125,22 +125,22 @@ in
           "XCURSOR_SIZE,26"
         ]);
         layerrule = [
-          "blur,rofi"
-          "ignorezero,rofi"
-          "animation slide bottom 0.2 0.2 wind,rofi"
-          "blur,notifications"
-          "ignorezero,notifications"
-          "blur,swaync-notification-window"
-          "animation slide right 0.5 0.5,swaync-control-center"
-          "animation slide right 0.5 0.5,notifications"
-          "animation slide right 0.5 0.5,swaync-notification-window"
-          "ignorezero,swaync-notification-window"
-          "blur,swaync-control-center"
-          "ignorezero,swaync-control-center"
-          "blur,logout_dialog"
-          "blur,waybar"
-          "ignorezero,waybar"
-          "animation slide top 0.2 0.2 wind,waybar"
+          "blur on,match:namespace rofi"
+          "ignore_alpha 0,match:namespace rofi"
+          "animation slide bottom 0.2 0.2 wind,match:namespace rofi"
+          "blur on,match:namespace notifications"
+          "ignore_alpha 0,match:namespace notifications"
+          "blur on,match:namespace swaync-notification-window"
+          "animation slide right 0.5 0.5,match:namespace swaync-control-center"
+          "animation slide right 0.5 0.5,match:namespace notifications"
+          "animation slide right 0.5 0.5,match:namespace swaync-notification-window"
+          "ignore_alpha 0,match:namespace swaync-notification-window"
+          "blur on,match:namespace swaync-control-center"
+          "ignore_alpha 0,match:namespace swaync-control-center"
+          "blur on,match:namespace logout_dialog"
+          "blur on,match:namespace waybar"
+          "ignore_alpha 0,match:namespace waybar"
+          "animation slide top 0.2 0.2 wind,match:namespace waybar"
         ];
         dwindle = {
           pseudotile = "yes";
@@ -219,7 +219,6 @@ in
           fullscreen_on_one_column = true;
           focus_fit_method = "1";
         };
-        experimental.xx_color_management_v4 = true;
       };
     };
 
