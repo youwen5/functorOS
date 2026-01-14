@@ -204,7 +204,7 @@ in
             passes = "3";
             new_optimizations = "on";
             ignore_opacity = "on";
-            xray = "false";
+            xray = "true";
             special = true;
           };
           shadow = {
