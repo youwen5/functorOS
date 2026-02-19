@@ -55,7 +55,8 @@ in
       enable = true;
       ruleset = ''
         define EXCLUDED_IPS = {
-          101.6.15.130
+          101.6.15.130,
+          10.128.0.1
         }
 
         table inet excludeTraffic {
