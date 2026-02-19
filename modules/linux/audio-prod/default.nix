@@ -26,9 +26,8 @@ in
     };
   };
 
-  config =
-    lib.mkIf cfg.enable
-    <| lib.mkMerge [
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
       {
         functorOS = {
           programs.wine.enable = true;
@@ -102,5 +101,6 @@ in
           ))
         ];
       })
-    ];
+    ]
+  );
 }
