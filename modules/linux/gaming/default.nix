@@ -128,7 +128,7 @@ in
           extraPkgs =
             pkgs: with pkgs; [
               xorg.libXcursor
-              xorg.libXi
+              libxi
               xorg.libXinerama
               xorg.libXScrnSaver
               libpng
@@ -148,7 +148,7 @@ in
       warnings =
         if cfg.utilities.gamemode.enable && (builtins.length cfg.utilities.gamemode.gamemodeUsers == 0) then
           [
-            ''You enabled gamemode without setting any gamemode users in `functorOS.extras.gaming.utilities.gamemode.gamemodeUsers. Gamemode is unlikely to work unless you add your user to gamemodeUsers.''
+            "You enabled gamemode without setting any gamemode users in `functorOS.extras.gaming.utilities.gamemode.gamemodeUsers. Gamemode is unlikely to work unless you add your user to gamemodeUsers."
           ]
         else
           [ ];

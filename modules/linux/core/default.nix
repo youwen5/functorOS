@@ -90,8 +90,8 @@ in
         enable = true;
         libraries = with pkgs; [
           icu
-          xorg.libXtst
-          xorg.libXi
+          libxtst
+          libxi
         ];
       };
 
@@ -125,7 +125,8 @@ in
       };
     })
     (lib.mkIf cfg.replaceSudoWithRun0 {
-      security.polkit.persistentAuthentication = true;
+      # TODO: enable once dbus 1.15.7 lands
+      security.polkit.persistentAuthentication = false;
       security.run0-sudo-shim.enable = true;
     })
     (lib.mkIf cfg.nixSaneDefaults {

@@ -245,6 +245,7 @@ in
       enable = true;
       enableBashIntegration = true;
       enableFishIntegration = true;
+      shellWrapperName = "y";
       plugins = {
         mediainfo = pkgs.fetchFromGitHub {
           owner = "Ape";
