@@ -63,7 +63,7 @@ in
       "$mod, S, togglespecialworkspace"
       "$mod+Alt, S, movetoworkspacesilent, special"
       "$mod, Tab, workspace, previous"
-      ''$mod+Shift, P, exec, ${lib.getExe pkgs.grim} - | ${lib.getExe pkgs.swappy} -f -'' # Screenshot full screen
+      "$mod+Shift, P, exec, ${lib.getExe pkgs.grim} - | ${lib.getExe pkgs.swappy} -f -" # Screenshot full screen
       ''$mod, P, exec, ${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${lib.getExe pkgs.swappy} -f -'' # Screenshot
 
       # browser

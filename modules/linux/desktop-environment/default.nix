@@ -34,7 +34,24 @@ in
 
     programs.hyprland = lib.mkIf cfg.hyprland.enable {
       enable = true;
+      withUWSM = true;
     };
+
+    nixpkgs.overlays = [
+      (final: prev: {
+        hyprland = prev.hyprland.overrideAttrs (
+          finalAttrs: prevAttrs: {
+            nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ prev.makeWrapper ];
+            postInstall = prevAttrs.postInstall + ''
+              wrapProgram $out/bin/start-hyprland \
+                --add-flags "--no-nixgl"
+            '';
+          }
+        );
+      })
+    ];
+
+    programs.uwsm.enable = true;
 
     programs.niri.enable = cfg.niri.enable;
 

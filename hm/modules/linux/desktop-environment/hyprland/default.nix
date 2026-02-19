@@ -116,7 +116,7 @@ in
         "$Down" = "J";
         env = [
           # mitigates warning message due to ly workaround
-          "XDG_CURRENT_DESKTOP,Hyprland"
+          # "XDG_CURRENT_DESKTOP,Hyprland"
         ]
         ++ (lib.optionals cfg.gtkUseOpenGL [
           "GSK_RENDERER,ngl"

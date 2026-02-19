@@ -18,9 +18,10 @@ in
     };
     command = lib.mkOption {
       type = lib.types.str;
-      default = if config.functorOS.desktop.enable then "Hyprland" else "";
+      # must pass --no-nixgl as NixOS check fails since we are on functorOS
+      default = if config.functorOS.desktop.enable then "start-hyprland --no-nixgl" else "";
       description = ''
-        Command for the greeter to execute to launch the desktop. If the functorOS Hyprland Desktop is enabled, defaults to `Hyprland`.
+        Command for the greeter to execute to launch the desktop. If the functorOS Hyprland Desktop is enabled, defaults to `start-hyprland`.
       '';
     };
   };
