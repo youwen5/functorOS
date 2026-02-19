@@ -26,79 +26,81 @@ in
     };
   };
 
-  config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
-      functorOS = {
-        programs.wine.enable = true;
-        system.audio.enable = true;
-        config.extraUnfreePackages = lib.mkIf config.functorOS.config.allowUnfree [
-          "reaper"
+  config =
+    lib.mkIf cfg.enable
+    <| lib.mkMerge [
+      {
+        functorOS = {
+          programs.wine.enable = true;
+          system.audio.enable = true;
+          config.extraUnfreePackages = lib.mkIf config.functorOS.config.allowUnfree [
+            "reaper"
+          ];
+        };
+
+        environment.systemPackages = with pkgs; [
+          (overrideWine yabridge)
+          (overrideWine yabridgectl)
+          alsa-scarlett-gui
         ];
-      };
 
-      environment.systemPackages = with pkgs; [
-        (overrideWine yabridge)
-        (overrideWine yabridgectl)
-        alsa-scarlett-gui
-      ];
+        musnix.enable = true;
+        # PREEMPT_RT is merged into master
+        musnix.kernel.realtime = false;
 
-      musnix.enable = true;
-      # PREEMPT_RT is merged into master
-      musnix.kernel.realtime = false;
+        musnix.das_watchdog.enable = true;
+        musnix.alsaSeq.enable = true;
+        musnix.rtcqs.enable = true;
+        users.users = forAllUsers (_: {
+          extraGroups = [ "audio" ];
+        });
 
-      musnix.das_watchdog.enable = true;
-      musnix.alsaSeq.enable = true;
-      musnix.rtcqs.enable = true;
-      users.users = forAllUsers (_: {
-        extraGroups = [ "audio" ];
-      });
+        boot.kernelParams = [
+          "threadirqs"
+        ];
+      }
+      (lib.mkIf config.functorOS.config.allowUnfree {
+        environment.systemPackages = with pkgs; [
+          (reaper.overrideAttrs (
+            finalAttrs: prevAttrs: {
+              installPhase = ''
+                runHook preInstall
 
-      boot.kernelParams = [
-        "threadirqs"
-      ];
-    })
-    (lib.mkIf config.functorOS.config.allowUnfree {
-      environment.systemPackages = with pkgs; [
-        (reaper.overrideAttrs (
-          finalAttrs: prevAttrs: {
-            installPhase = ''
-              runHook preInstall
+                HOME="$out/share" XDG_DATA_HOME="$out/share" ./install-reaper.sh \
+                  --install $out/opt \
+                  --integrate-user-desktop
+                rm $out/opt/REAPER/uninstall-reaper.sh
 
-              HOME="$out/share" XDG_DATA_HOME="$out/share" ./install-reaper.sh \
-                --install $out/opt \
-                --integrate-user-desktop
-              rm $out/opt/REAPER/uninstall-reaper.sh
+                # Dynamic loading of plugin dependencies does not adhere to rpath of
+                # reaper executable that gets modified with runtimeDependencies.
+                # Patching each plugin with DT_NEEDED is cumbersome and requires
+                # hardcoding of API versions of each dependency.
+                # Setting the rpath of the plugin shared object files does not
+                # seem to have an effect for some plugins.
+                # We opt for wrapping the executable with LD_LIBRARY_PATH prefix.
+                # Note that libcurl and libxml2 are needed for ReaPack to run.
+                wrapProgram $out/opt/REAPER/reaper \
+                  --prefix LD_LIBRARY_PATH : "${
+                    lib.makeLibraryPath [
+                      curl
+                      lame
+                      libxml2
+                      ffmpeg
+                      vlc
+                      xdotool
+                      stdenv.cc.cc
+                    ]
+                  }" \
+                  --prefix PIPEWIRE_LATENCY : "128/48000"
 
-              # Dynamic loading of plugin dependencies does not adhere to rpath of
-              # reaper executable that gets modified with runtimeDependencies.
-              # Patching each plugin with DT_NEEDED is cumbersome and requires
-              # hardcoding of API versions of each dependency.
-              # Setting the rpath of the plugin shared object files does not
-              # seem to have an effect for some plugins.
-              # We opt for wrapping the executable with LD_LIBRARY_PATH prefix.
-              # Note that libcurl and libxml2 are needed for ReaPack to run.
-              wrapProgram $out/opt/REAPER/reaper \
-                --prefix LD_LIBRARY_PATH : "${
-                  lib.makeLibraryPath [
-                    curl
-                    lame
-                    libxml2
-                    ffmpeg
-                    vlc
-                    xdotool
-                    stdenv.cc.cc
-                  ]
-                }" \
-                --prefix PIPEWIRE_LATENCY : "128/48000"
+                mkdir $out/bin
+                ln -s $out/opt/REAPER/reaper $out/bin/
 
-              mkdir $out/bin
-              ln -s $out/opt/REAPER/reaper $out/bin/
-
-              runHook postInstall
-            '';
-          }
-        ))
-      ];
-    })
-  ];
+                runHook postInstall
+              '';
+            }
+          ))
+        ];
+      })
+    ];
 }
