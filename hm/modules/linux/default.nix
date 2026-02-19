@@ -15,6 +15,7 @@
     ./platform-tweaks
     ./tidal-hifi
     ./var/mangohud
+    ./photography
   ];
 
   programs.fish.functions = lib.mkIf config.functorOS.programs.enable {
