@@ -37,7 +37,7 @@ in
       withUWSM = true;
     };
 
-    environment.systemPackages = [
+    services.displayManager.sessionPackages = [
       (
         let
           desktop-file = pkgs.writeText "hyprland-functoros.desktop" ''
@@ -53,7 +53,7 @@ in
             [Desktop Entry]
             Name=functorOS Desktop
             Comment=An intelligent dynamic tiling Wayland compositor
-            Exec=uwsm start -e -D Hyprland hyprland-functoros.desktop
+            Exec=uwsm start -e -D Hyprland ${desktop-file}
             TryExec=uwsm
             DesktopNames=Hyprland
             Type=Application
@@ -67,13 +67,11 @@ in
 
           installPhase = ''
             mkdir -p $out/share/wayland-sessions
-            cp ${desktop-file} $out/share/wayland-sessions/hyprland-functoros.desktop
-            cp ${uwsm-file} $out/share/wayland-sessions/hyprland-uwsm-functoros.desktop
+            cp ${uwsm-file} $out/share/wayland-sessions/hyprland-functoros.desktop
           '';
 
           passthru.providedSessions = [
             "hyprland-functoros"
-            "hyprland-uwsm-functoros.desktop"
           ];
         }
       )
