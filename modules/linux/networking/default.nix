@@ -88,11 +88,13 @@ in
       "1.0.0.1"
     ];
 
-    networking.networkmanager.enable = lib.mkIf (cfg.enable && cfg.backend == "wpa_supplicant") true;
+    networking.networkmanager.enable = lib.mkIf cfg.enable true;
 
-    systemd.services.NetworkManager-wait-online.enable = lib.mkIf (
-      cfg.enable && cfg.backend == "wpa_supplicant"
-    ) false;
+    systemd.services.NetworkManager-wait-online.enable = lib.mkIf cfg.enable false;
+
+    networking.wireless.enable = lib.mkIf (cfg.enable && cfg.backend == "iwd") false;
+
+    networking.networkmanager.wifi.backend = lib.mkIf cfg.enable cfg.backend;
 
     networking.wireless.iwd = lib.mkIf (cfg.enable && cfg.backend == "iwd") {
       enable = true;
