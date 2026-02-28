@@ -9,6 +9,7 @@ let
 in
 {
   options.functorOS.desktop.localization = {
+    spanish.input.enable = lib.mkEnableOption "Spanish input method using fcitx5.";
     chinese.input.enable = lib.mkEnableOption "Chinese input method using fcitx5.";
     chinese.script = lib.mkOption {
       type = lib.types.enum [
@@ -133,6 +134,13 @@ in
           Name = "pinyin";
           # Layout
           Layout = "";
+        };
+
+        "Groups/0/Items/2" = lib.mkIf cfg.spanish.input.enable {
+          # Name
+          Name = "keyboard-latam";
+          # Layout
+          Layout = "latam";
         };
 
         "GroupOrder" = {
