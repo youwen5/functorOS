@@ -1,5 +1,5 @@
 {
-  description = "System configuration flake.";
+  description = "functorOS";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -181,7 +181,7 @@
           };
           packages.docs-rendered = pkgs.callPackage ./docs/rendered.nix {
             inherit (self'.packages) docs-raw;
-            title = ''functorOS module options for ${if (self ? rev) then self.rev else "placeholder_hash"}'';
+            title = "functorOS module options for ${if (self ? rev) then self.rev else "placeholder_hash"}";
           };
         };
     };
