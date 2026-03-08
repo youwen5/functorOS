@@ -37,6 +37,15 @@ in
         Whether to set sane defaults for Nix, such as optimization and automatic garbage collection.
       '';
     };
+    nixTrustWheel = lib.mkOption {
+      type = lib.types.bool;
+      default = cfg.disable;
+      description = ''
+        Whether to allow any user in the group `wheel` to manipulate the Nix store.
+
+        WARNING: Enabling this option is equivalent to passwordless sudo, so any process running as your user can escalate to root at any time.
+      '';
+    };
     useNh = lib.mkOption {
       type = lib.types.bool;
       default = cfg.nixSaneDefaults;
@@ -150,12 +159,14 @@ in
             "flakes"
           ];
           substituters = [ "https://nix-community.cachix.org" ];
-          trusted-users = [ "@wheel" ];
           trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
         };
 
         channel.enable = false;
       };
+    })
+    (lib.mkIf cfg.nixTrustWheel {
+      nix.settings.trusted-users = [ "@wheel" ];
     })
     (lib.mkIf cfg.chinaOptimizations {
       nix.settings.substituters = lib.mkOverride 900 [
