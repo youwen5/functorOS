@@ -21,7 +21,7 @@ in
       default = false;
       description = ''
         Whether to enable and rice Sway as the desktop compositor.
-        Uses a horizontal-first tiling layout for a scroller/column workflow.
+        Uses standard sway tiling (splith/splitv).
       '';
     };
     idleDaemon.enable = lib.mkOption {
@@ -258,6 +258,14 @@ in
           { command = "fcitx5-remote -r"; }
         ];
       };
+      extraConfig = ''
+        input "type:touchpad" {
+            natural_scroll enabled
+            tap enabled         # enables click-on-tap
+            tap_button_map lrm  # tap with 1 finger = left click, 2 fingers = right click, 3 fingers = middle click
+            dwt enabled         # disable (touchpad) while typing
+        }
+      '';
     };
   };
 }

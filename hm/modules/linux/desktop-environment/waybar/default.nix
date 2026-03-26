@@ -119,11 +119,9 @@ in
               all-outputs = false;
               on-scroll-down = "swaymsg workspace next_on_output";
               on-scroll-up = "swaymsg workspace prev_on_output";
-              format = "{icon}";
+              format = "{name}";
               format-icons = {
-                urgent = "";
-                focused = "";
-                default = "";
+                urgent = "!";
               };
             }
           else
@@ -605,7 +603,7 @@ in
           /* Sway clock: squared */
           #clock {
             border-radius: 0px;
-            padding: 0px 20px;
+            padding: 0px 20px 0px 14px;
             border-left: 2px solid #${palette.base03};
             border-right: none;
             border-top: none;

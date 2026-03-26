@@ -158,7 +158,7 @@ in
           "window" = {
             height = mkLiteral "20em";
             width = mkLiteral "30em";
-            border-radius = mkLiteral "8px";
+            border-radius = mkLiteral "0px";
             border-width = mkLiteral "2px";
             padding = mkLiteral "1.5em";
           };
@@ -176,7 +176,7 @@ in
             padding = mkLiteral "1em 1em";
             text-color = mkRgb "base05";
             background-color = mkRgba rofiOpacity "base00";
-            border-radius = mkLiteral "8px";
+            border-radius = mkLiteral "0px";
           };
           "element-text" = {
             padding = mkLiteral "0.5em 1em";
@@ -188,7 +188,7 @@ in
           "element-text selected" = {
             background-color = mkRgba rofiOpacity "base0A";
             text-color = mkRgb "base01";
-            border-radius = mkLiteral "8px";
+            border-radius = mkLiteral "0px";
           };
         };
     };
