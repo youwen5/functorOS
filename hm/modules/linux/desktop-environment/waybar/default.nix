@@ -234,11 +234,11 @@ in
           format-plugged = " {capacity}% ";
           format-alt = "{icon} {time}";
           format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
+            "󰁺"
+            "󰁼"
+            "󰁾"
+            "󰂀"
+            "󰁹"
           ];
         };
 
@@ -257,7 +257,7 @@ in
           tooltip-format = "CPU: {usage}% | {avg_frequency} GHz";
         };
         network = {
-          format-wifi = "  {signalStrength}%";
+          format-wifi = "󰤨 {signalStrength}%";
           format-ethernet = "󰈀 100% ";
           tooltip-format = "Connected to {essid} {ifname} via {gwaddr}";
           format-linked = "{ifname} (No IP)";
@@ -626,7 +626,7 @@ in
           #cpu, #memory {
             background: #${palette.base00};
             font-weight: bold;
-            margin: 4px 0px;
+            margin: 0px;
             border-style: solid;
             border-width: 0px 0px 0px 2px;
             border-color: #${palette.base03};

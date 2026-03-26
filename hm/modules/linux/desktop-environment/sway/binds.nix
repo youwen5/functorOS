@@ -85,6 +85,18 @@ in
         "${modifier}+e" = "exec ${lib.getExe pkgs.nautilus}";
         "${modifier}+m" = "exec ${lib.getExe pkgs.thunderbird}";
       })
+      // (lib.listToAttrs (
+        lib.concatMap (n: [
+          {
+            name = "${modifier}+${toString n}";
+            value = "workspace number ${toString n}";
+          }
+          {
+            name = "${modifier}+Shift+${toString n}";
+            value = "move container to workspace number ${toString n}; workspace number ${toString n}";
+          }
+        ]) (lib.range 1 9)
+      ))
     )
   );
 }
