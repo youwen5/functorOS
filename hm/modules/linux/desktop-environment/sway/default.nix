@@ -85,12 +85,12 @@ in
 
         fonts = {
           names = [ config.stylix.fonts.monospace.name ];
-          size = lib.mkForce 12.0;
+          size = lib.mkDefault 12.0;
         };
 
         gaps = {
-          inner = 3;
-          outer = 8;
+          inner = 2;
+          outer = 6;
           smartBorders = "on";
         };
 
@@ -258,14 +258,7 @@ in
           { command = "fcitx5-remote -r"; }
         ];
       };
-      extraConfig = ''
-        input "type:touchpad" {
-            natural_scroll enabled
-            tap enabled         # enables click-on-tap
-            tap_button_map lrm  # tap with 1 finger = left click, 2 fingers = right click, 3 fingers = middle click
-            dwt enabled         # disable (touchpad) while typing
-        }
-      '';
+      extraConfig = "";
     };
   };
 }
