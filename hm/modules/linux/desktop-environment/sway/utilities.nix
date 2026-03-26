@@ -134,6 +134,9 @@ in
     programs.rofi = {
       enable = true;
       terminal = "${lib.getExe pkgs.kitty}";
+      extraConfig = {
+        prompt = ">";
+      };
       theme =
         let
           inherit (config.lib.formats.rasi) mkLiteral;
@@ -153,41 +156,64 @@ in
           "*" = {
             font = "${config.stylix.fonts.monospace.name} ${toString config.stylix.fonts.sizes.popups}";
             text-color = mkRgb "base05";
-            background-color = mkRgba rofiOpacity "base00";
+            background-color = mkLiteral "transparent";
           };
           "window" = {
             height = mkLiteral "20em";
             width = mkLiteral "30em";
             border-radius = mkLiteral "0px";
-            border-width = mkLiteral "2px";
-            padding = mkLiteral "1.5em";
+            border = mkLiteral "1px";
+            border-color = mkRgb "base05";
+            background-color = mkRgba rofiOpacity "base00";
+            padding = mkLiteral "0";
           };
           "mainbox" = {
-            background-color = mkRgba rofiOpacity "base01";
+            background-color = mkLiteral "transparent";
+            spacing = mkLiteral "0";
+            padding = mkLiteral "0";
           };
           "inputbar" = {
-            margin = mkLiteral "0 0 1em 0";
+            padding = mkLiteral "0.6em 1em";
+            background-color = mkRgba rofiOpacity "base00";
+            border = mkLiteral "0px 0px 1px 0px";
+            border-color = mkRgb "base05";
+            spacing = mkLiteral "0.5em";
           };
           "prompt" = {
-            enabled = false;
+            enabled = true;
+            text-color = mkRgb "base0B";
+            padding = mkLiteral "0";
           };
           "entry" = {
-            placeholder = "Search...";
-            padding = mkLiteral "1em 1em";
+            placeholder = "search...";
+            placeholder-color = mkRgba "40" "base05";
+            padding = mkLiteral "0";
             text-color = mkRgb "base05";
-            background-color = mkRgba rofiOpacity "base00";
+            background-color = mkLiteral "transparent";
             border-radius = mkLiteral "0px";
           };
-          "element-text" = {
-            padding = mkLiteral "0.5em 1em";
-            margin = mkLiteral "0 0.5em";
+          "listview" = {
+            padding = mkLiteral "0.5em 0";
+            background-color = mkLiteral "transparent";
+          };
+          "element" = {
+            padding = mkLiteral "0.35em 1em";
+            border-radius = mkLiteral "0px";
+            background-color = mkLiteral "transparent";
+            spacing = mkLiteral "0.5em";
           };
           "element-icon" = {
             size = mkLiteral "3ch";
+            background-color = mkLiteral "transparent";
+          };
+          "element-text" = {
+            padding = mkLiteral "0";
+            background-color = mkLiteral "transparent";
+            text-color = mkRgb "base05";
           };
           "element-text selected" = {
-            background-color = mkRgba rofiOpacity "base0A";
-            text-color = mkRgb "base01";
+            background-color = mkRgba "25" "base0B";
+            text-color = mkRgb "base0B";
             border-radius = mkLiteral "0px";
           };
         };
