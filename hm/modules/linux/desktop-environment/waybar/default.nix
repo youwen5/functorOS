@@ -9,6 +9,8 @@ let
   cfg = config.functorOS.desktop.waybar;
   theme = config.lib.stylix;
   palette = theme.colors;
+  useSway = config.functorOS.desktop.sway.enable;
+  wsModuleName = if useSway then "sway/workspaces" else "hyprland/workspaces";
 in
 {
   options.functorOS.desktop.waybar = {
@@ -34,7 +36,13 @@ in
     programs.waybar = {
       enable = true;
       systemd.enable = true;
-      systemd.target = lib.mkIf config.functorOS.desktop.hyprland.enable "hyprland-session.target";
+      systemd.target =
+        if useSway then
+          "sway-session.target"
+        else if config.functorOS.desktop.hyprland.enable then
+          "hyprland-session.target"
+        else
+          "graphical-session.target";
       settings.mainBar = {
         name = "bar0";
         reload_style_on_change = true;
@@ -45,44 +53,52 @@ in
         margin-bottom = 0;
         margin-left = if cfg.variant == "compact" then 0 else 8;
         margin-right = if cfg.variant == "compact" then 0 else 8;
-        modules-left = [
-          "custom/launcher"
-        ]
-        ++ (lib.optionals (cfg.variant != "laptop" && cfg.variant != "compact") [
-          "custom/playerctl#backward"
-          "custom/playerctl#play"
-          "custom/playerctl#forward"
-        ])
-        ++ [
-          "idle_inhibitor"
-        ]
-        ++ (lib.optionals (cfg.variant == "laptop" || cfg.variant == "compact") [
-          "hyprland/workspaces"
-        ])
-        ++ (lib.optionals (cfg.variant == "minimal") [
-          "cava#left"
-        ])
-        ++ [
-          "custom/playerlabel"
-        ];
+        modules-left =
+          [
+            "custom/launcher"
+          ]
+          ++ (lib.optionals (cfg.variant != "laptop" && cfg.variant != "compact") [
+            "custom/playerctl#backward"
+            "custom/playerctl#play"
+            "custom/playerctl#forward"
+          ])
+          ++ [
+            "idle_inhibitor"
+          ]
+          ++ (lib.optionals (cfg.variant == "laptop" || cfg.variant == "compact") [
+            wsModuleName
+          ])
+          ++ (lib.optionals (cfg.variant == "minimal") [
+            "cava#left"
+          ])
+          ++ [
+            "custom/playerlabel"
+          ];
         modules-center = lib.mkIf (cfg.variant != "laptop" && cfg.variant != "compact") (
           (lib.optionals (cfg.variant == "full") [
             "cava#left"
           ])
           ++ [
-            "hyprland/workspaces"
+            wsModuleName
           ]
           ++ (lib.optionals (cfg.variant == "full") [
             "cava#right"
           ])
         );
-        modules-right = [
-          "tray"
-          "battery"
-          "pulseaudio"
-          "network"
-          "clock"
-        ];
+        modules-right =
+          [
+            "tray"
+            "battery"
+          ]
+          ++ (lib.optionals useSway [
+            "cpu"
+            "memory"
+          ])
+          ++ [
+            "pulseaudio"
+            "network"
+            "clock"
+          ];
         idle_inhibitor = {
           format = "{icon}";
           format-icons = {
@@ -91,25 +107,40 @@ in
           };
         };
         clock = {
-          format = " {:%a, %d %b, %I:%M %p}";
+          format = " {:%a, %d %b, %I:%M %p}";
           tooltip = "true";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = " {:%d/%m}";
+          format-alt = " {:%d/%m}";
         };
-        "hyprland/workspaces" = {
-          disable-scroll = false;
-          on-scroll-down = "${lib.getExe pkgs.hyprnome}";
-          on-scroll-up = "${lib.getExe pkgs.hyprnome} --previous";
-          format = "{icon}";
-          on-click = "activate";
-          format-icons = {
-            active = "";
-            default = "";
-            urgent = "";
-            special = "󰠱";
-          };
-          sort-by-number = true;
-        };
+        "${wsModuleName}" =
+          if useSway then
+            {
+              disable-scroll = false;
+              all-outputs = false;
+              on-scroll-down = "swaymsg workspace next_on_output";
+              on-scroll-up = "swaymsg workspace prev_on_output";
+              format = "{icon}";
+              format-icons = {
+                urgent = "";
+                focused = "";
+                default = "";
+              };
+            }
+          else
+            {
+              disable-scroll = false;
+              on-scroll-down = "${lib.getExe pkgs.hyprnome}";
+              on-scroll-up = "${lib.getExe pkgs.hyprnome} --previous";
+              format = "{icon}";
+              on-click = "activate";
+              format-icons = {
+                active = "";
+                default = "";
+                urgent = "";
+                special = "󰠱";
+              };
+              sort-by-number = true;
+            };
         "cava#left" = {
           framerate = 60;
           autosens = 1;
@@ -175,8 +206,8 @@ in
           on-scroll-down = "playerctl volume .05-";
           format-icons = {
             Playing = "<span>󰏥 </span>";
-            Paused = "<span> </span>";
-            Stopped = "<span> </span>";
+            Paused = "<span> </span>";
+            Stopped = "<span> </span>";
           };
         };
         "custom/playerctl#forward" = {
@@ -199,15 +230,15 @@ in
             critical = 15;
           };
           format = "{icon}  {capacity}%";
-          format-charging = "  {capacity}%";
-          format-plugged = " {capacity}% ";
+          format-charging = "  {capacity}%";
+          format-plugged = " {capacity}% ";
           format-alt = "{icon} {time}";
           format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
+            ""
+            ""
+            ""
+            ""
+            ""
           ];
         };
 
@@ -215,14 +246,18 @@ in
           format = "󰍛 {}%";
           format-alt = "󰍛 {used}/{total} GiB";
           interval = 5;
+          tooltip = true;
+          tooltip-format = "RAM: {used} GiB / {total} GiB";
         };
         cpu = {
           format = "󰻠 {usage}%";
           format-alt = "󰻠 {avg_frequency} GHz";
           interval = 5;
+          tooltip = true;
+          tooltip-format = "CPU: {usage}% | {avg_frequency} GHz";
         };
         network = {
-          format-wifi = "  {signalStrength}%";
+          format-wifi = "  {signalStrength}%";
           format-ethernet = "󰈀 100% ";
           tooltip-format = "Connected to {essid} {ifname} via {gwaddr}";
           format-linked = "{ifname} (No IP)";
@@ -293,7 +328,7 @@ in
             '';
           in
           {
-            format = "";
+            format = "";
             on-click = "pkill -9 rofi || rofi -show drun";
             on-click-right = "${lib.getExe toggle-colorscheme}";
             tooltip = "false";
@@ -312,6 +347,7 @@ in
             "rgba(${r}, ${g}, ${b}, ${opacity})";
           compact = cfg.variant == "compact";
         in
+        # ── Shared base styles (hyprland default) ──────────────────────────
         ''
           * {
             border: none;
@@ -362,7 +398,8 @@ in
               transition: all 0.3s ease-in-out;
           }
 
-          #workspaces button.active {
+          #workspaces button.active,
+          #workspaces button.focused {
               background-color: #${palette.base0A};
               color: #${palette.base03};
               border-radius: 16px;
@@ -499,6 +536,137 @@ in
             border-width: 2px;
             border-color: #${palette.base03};
             border-style: solid;
+          }
+        '')
+        # ── Sway overrides: squared-off, utilitarian ───────────────────────
+        + (lib.optionalString useSway ''
+          /* Sway: fully squared off — no border-radius anywhere */
+          window#waybar {
+            border-radius: 0px;
+          }
+          #waybar > box {
+            border-radius: 0px;
+            border-bottom: 2px solid #${palette.base03};
+          }
+          #workspaces,
+          #workspaces button,
+          #workspaces button.focused,
+          #workspaces button.active,
+          #workspaces button:hover,
+          #tray, #pulseaudio, #network, #battery,
+          #cpu, #memory,
+          #clock,
+          #custom-launcher,
+          #custom-playerlabel,
+          #idle_inhibitor,
+          #window,
+          #custom-playerctl.backward,
+          #custom-playerctl.play,
+          #custom-playerctl.forward {
+            border-radius: 0px;
+          }
+
+          /* Sway workspace buttons: underline style instead of pill */
+          #workspaces {
+            margin: 0px 4px;
+            padding: 0px 4px;
+            border-radius: 0px;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 0px;
+          }
+          #workspaces button {
+            padding: 0px 8px;
+            margin: 0px 1px;
+            background: transparent;
+            color: #${palette.base04};
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s ease-in-out;
+          }
+          #workspaces button.focused,
+          #workspaces button.active {
+            background: #${palette.base01};
+            color: #${palette.base0A};
+            border-bottom: 2px solid #${palette.base0A};
+            min-width: 40px;
+          }
+          #workspaces button.urgent {
+            background: #${palette.base08};
+            color: #${palette.base00};
+            border-bottom: 2px solid #${palette.base08};
+          }
+          #workspaces button:hover {
+            background: #${palette.base02};
+            color: #${palette.base05};
+            border-bottom: 2px solid #${palette.base05};
+            min-width: 40px;
+          }
+
+          /* Sway clock: squared */
+          #clock {
+            border-radius: 0px;
+            padding: 0px 20px;
+            border-left: 2px solid #${palette.base03};
+            border-right: none;
+            border-top: none;
+            border-bottom: none;
+          }
+
+          /* Sway launcher: squared */
+          #custom-launcher {
+            border-radius: 0px;
+            padding: 0px 24px 0px 18px;
+            border-right: 2px solid #${palette.base03};
+            border-left: none;
+            border-top: none;
+            border-bottom: none;
+          }
+
+          /* Sway stats modules: CPU and memory */
+          #cpu, #memory {
+            background: #${palette.base00};
+            font-weight: bold;
+            margin: 4px 0px;
+            border-style: solid;
+            border-width: 0px 0px 0px 2px;
+            border-color: #${palette.base03};
+            padding: 0 14px;
+          }
+          #cpu {
+            color: #${palette.base08};
+          }
+          #memory {
+            color: #${palette.base0D};
+          }
+
+          /* Sway right-side modules: flat with left separator */
+          #tray, #pulseaudio, #network, #battery {
+            border-radius: 0px;
+            border-style: solid;
+            border-width: 0px 0px 0px 2px;
+            border-color: #${palette.base03};
+            padding: 0 14px;
+            margin: 0px;
+            margin-left: 0px;
+          }
+
+          /* Sway idle inhibitor: squared */
+          #idle_inhibitor {
+            border-radius: 0px;
+            border-style: solid;
+            border-width: 0px 2px 0px 0px;
+            border-color: #${palette.base03};
+            margin: 0px;
+          }
+
+          /* Sway player label: squared */
+          #custom-playerlabel {
+            border-radius: 0px;
+            border-style: solid;
+            border-width: 0px 0px 0px 2px;
+            border-color: #${palette.base03};
+            padding: 0 14px;
+            margin: 0px;
           }
         '');
     };

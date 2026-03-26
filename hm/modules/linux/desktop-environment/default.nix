@@ -7,6 +7,7 @@
   imports = [
     ./hyprland
     ./niri
+    ./sway
     ./waybar
     ./swaync.nix
   ];
