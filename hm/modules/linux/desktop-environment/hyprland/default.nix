@@ -92,14 +92,15 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       plugins = [
-        (pkgs.hyprlandPlugins.hyprscrolling.overrideAttrs {
-          src = pkgs.fetchFromGitHub {
-            owner = "hyprwm";
-            repo = "hyprland-plugins";
-            rev = "64b7c2dff7e5e1fcb4cb7e5db078947744070e1a";
-            hash = "sha256-1WYjD66gyjj7PVOe7xbho6030FdrIUjh/XpAtp5+ASo=";
-          };
-        })
+        # (pkgs.hyprlandPlugins.hyprscrolling.overrideAttrs {
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "hyprwm";
+        #     repo = "hyprland-plugins";
+        #     rev = "64b7c2dff7e5e1fcb4cb7e5db078947744070e1a";
+        #     hash = "sha256-1WYjD66gyjj7PVOe7xbho6030FdrIUjh/XpAtp5+ASo=";
+        #   };
+        # })
+        pkgs.hyprlandPlugins.hyprscrolling
       ];
       settings = {
         exec-once = [

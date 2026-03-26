@@ -64,21 +64,20 @@ in
       enable = true;
       systemd.enable = true;
       wrapperFeatures.gtk = true;
-      extraSessionCommands =
-        ''
-          export XDG_SESSION_TYPE=wayland
-          export XDG_SESSION_DESKTOP=sway
-          export XDG_CURRENT_DESKTOP=sway
-          export MOZ_ENABLE_WAYLAND=1
-          export QT_QPA_PLATFORM=wayland
-          export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-          export SDL_VIDEODRIVER=wayland
-          export _JAVA_AWT_WM_NONREPARENTING=1
-        ''
-        + (lib.optionalString (!osConfig.functorOS.theming.enable) ''
-          export XCURSOR_THEME=Bibata-Modern-Ice
-          export XCURSOR_SIZE=${if config.functorOS.formFactor == "laptop" then "24" else "26"}
-        '');
+      extraSessionCommands = ''
+        export XDG_SESSION_TYPE=wayland
+        export XDG_SESSION_DESKTOP=sway
+        export XDG_CURRENT_DESKTOP=sway
+        export MOZ_ENABLE_WAYLAND=1
+        export QT_QPA_PLATFORM=wayland
+        export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+        export SDL_VIDEODRIVER=wayland
+        export _JAVA_AWT_WM_NONREPARENTING=1
+      ''
+      + (lib.optionalString (!osConfig.functorOS.theming.enable) ''
+        export XCURSOR_THEME=Bibata-Modern-Ice
+        export XCURSOR_SIZE=${if config.functorOS.formFactor == "laptop" then "24" else "26"}
+      '');
       config = {
         modifier = "Mod4";
         terminal = lib.getExe pkgs.kitty;
@@ -86,7 +85,7 @@ in
 
         fonts = {
           names = [ config.stylix.fonts.monospace.name ];
-          size = 11.0;
+          size = lib.mkForce 12.0;
         };
 
         gaps = {
@@ -101,59 +100,87 @@ in
           hideEdgeBorders = "smart";
           commands = [
             {
-              criteria = { class = "kvantummanager"; };
+              criteria = {
+                class = "kvantummanager";
+              };
               command = "floating enable";
             }
             {
-              criteria = { class = "qt5ct"; };
+              criteria = {
+                class = "qt5ct";
+              };
               command = "floating enable";
             }
             {
-              criteria = { class = "qt6ct"; };
+              criteria = {
+                class = "qt6ct";
+              };
               command = "floating enable";
             }
             {
-              criteria = { app_id = "org.pulseaudio.pavucontrol"; };
+              criteria = {
+                app_id = "org.pulseaudio.pavucontrol";
+              };
               command = "floating enable, resize set 50% 50%";
             }
             {
-              criteria = { title = "Picture-in-Picture"; };
+              criteria = {
+                title = "Picture-in-Picture";
+              };
               command = "floating enable, sticky enable";
             }
             {
-              criteria = { app_id = "nm-connection-editor"; };
+              criteria = {
+                app_id = "nm-connection-editor";
+              };
               command = "floating enable";
             }
             {
-              criteria = { class = "nm-connection-editor"; };
+              criteria = {
+                class = "nm-connection-editor";
+              };
               command = "floating enable";
             }
             {
-              criteria = { app_id = "blueman-manager"; };
+              criteria = {
+                app_id = "blueman-manager";
+              };
               command = "floating enable";
             }
             {
-              criteria = { class = "vlc"; };
+              criteria = {
+                class = "vlc";
+              };
               command = "floating enable";
             }
             {
-              criteria = { app_id = "org.kde.ark"; };
+              criteria = {
+                app_id = "org.kde.ark";
+              };
               command = "floating enable";
             }
             {
-              criteria = { class = "eog"; };
+              criteria = {
+                class = "eog";
+              };
               command = "floating enable";
             }
             {
-              criteria = { app_id = "app.drey.Warp"; };
+              criteria = {
+                app_id = "app.drey.Warp";
+              };
               command = "floating enable";
             }
             {
-              criteria = { app_id = "net.davidotek.pupgui2"; };
+              criteria = {
+                app_id = "net.davidotek.pupgui2";
+              };
               command = "floating enable";
             }
             {
-              criteria = { app_id = "yad"; };
+              criteria = {
+                app_id = "yad";
+              };
               command = "floating enable";
             }
           ];
@@ -165,7 +192,7 @@ in
           modifier = "Mod4";
         };
 
-        colors = {
+        colors = lib.mkDefault {
           focused = {
             border = "#${colors.base0A}";
             background = "#${colors.base0A}";
@@ -207,25 +234,24 @@ in
 
         workspaceAutoBackAndForth = true;
 
-        input =
-          {
-            "type:keyboard" = {
-              xkb_layout = "us";
-            };
-            "type:pointer" = {
-              accel_profile = "flat";
-              pointer_accel = if config.functorOS.formFactor == "laptop" then "0.0" else "-0.65";
-            };
-          }
-          // (lib.optionalAttrs (config.functorOS.formFactor == "laptop") {
-            "type:touchpad" = {
-              natural_scroll = "enabled";
-              tap = "disabled";
-              dwt = "enabled";
-              scroll_factor = "0.15";
-              click_method = "clickfinger";
-            };
-          });
+        input = {
+          "type:keyboard" = {
+            xkb_layout = "us";
+          };
+          "type:pointer" = {
+            accel_profile = "flat";
+            pointer_accel = if config.functorOS.formFactor == "laptop" then "0.0" else "-0.65";
+          };
+        }
+        // (lib.optionalAttrs (config.functorOS.formFactor == "laptop") {
+          "type:touchpad" = {
+            natural_scroll = "enabled";
+            tap = "disabled";
+            dwt = "enabled";
+            scroll_factor = "0.15";
+            click_method = "clickfinger";
+          };
+        });
 
         startup = lib.optionals cfg.fcitx5.enable [
           { command = "fcitx5 -d -r"; }
