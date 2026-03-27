@@ -77,7 +77,6 @@
     run0-sudo-shim = {
       url = "github:LordGrimmauld/run0-sudo-shim";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     treefmt-nix = {
