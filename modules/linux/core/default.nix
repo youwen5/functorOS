@@ -195,7 +195,18 @@ in
       };
     })
     (lib.mkIf (config.functorOS.formFactor == "laptop") {
-      services.tlp.enable = true;
+      services.tlp = {
+        enable = true;
+        
+        # due to a new default on tlp 1.9, powerful laptops will have their fans
+        # run at maximum speed, resulting in severe degradation and rendering the system practically unusable;
+        # this setting overrides the default behavior to use a sane fan profile.
+        # for more information, see https://github.com/linrunner/TLP/issues/840
+        settings = {
+          PLATFORM_PROFILE_ON_AC = "balanced-performance";
+          PLATFORM_PROFILE_ON_BAT = "balanced-performance";
+        };
+      };
       programs.brightnessctl.enable = true;
     })
     (lib.mkIf cfg.bluetooth.enable {
