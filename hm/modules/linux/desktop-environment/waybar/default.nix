@@ -34,7 +34,7 @@ in
     programs.waybar = {
       enable = true;
       systemd.enable = true;
-      systemd.target = lib.mkIf config.functorOS.desktop.hyprland.enable "hyprland-session.target";
+      systemd.targets = lib.mkIf config.functorOS.desktop.hyprland.enable [ "hyprland-session.target" ];
       settings.mainBar = {
         name = "bar0";
         reload_style_on_change = true;

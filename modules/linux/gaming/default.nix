@@ -127,10 +127,10 @@ in
         steam = pkgs.steam.override {
           extraPkgs =
             pkgs: with pkgs; [
-              xorg.libXcursor
+              libxcursor
               libxi
-              xorg.libXinerama
-              xorg.libXScrnSaver
+              libxinerama
+              libxscrnsaver
               libpng
               libpulseaudio
               libvorbis
