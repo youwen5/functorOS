@@ -9,7 +9,7 @@
     # Alternatively, pin your own nixpkgs and set functorOS to follow it, as shown below.
 
     # nixpkgs.follows = "github:nixos/nixpkgs?ref=nixos-unstable";
-    # functorOS.url = "github:youwen5/functorOS";
+    # functorOS.url = "git+https://code.functor.systems/functor.systems/functorOS";
     # functorOS.inputs.nixpkgs.follows = "nixpkgs";
 
     # Either way, you should ensure that functorOS shares nixpkgs with your

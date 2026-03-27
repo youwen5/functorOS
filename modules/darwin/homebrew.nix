@@ -3,7 +3,7 @@
   nix-homebrew = {
     enable = true;
     enableRosetta = true;
-    user = "youwen";
+    user = "runner";
 
     taps = {
       "homebrew/homebrew-core" = inputs.homebrew-core;

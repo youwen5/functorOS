@@ -5,8 +5,8 @@
   ...
 }:
 {
-  home.username = "youwen";
-  home.homeDirectory = "/Users/youwen";
+  home.username = "runner";
+  home.homeDirectory = "/Users/runner";
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
