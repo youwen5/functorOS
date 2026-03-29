@@ -17,7 +17,7 @@ in
 
           cargoDeps = prev.rustPlatform.fetchCargoVendor {
             inherit (finalAttrs) src;
-            hash = "sha256-0yrTPrxN/4TOALqpQ5GW7LXKisc8msx3DvEpg8uO+IQ=";
+            hash = "sha256-1M8ICkju2M9CNiRoMkeUveINmF7LmeCP0vuu+haJ+kI=";
           };
         }
       );

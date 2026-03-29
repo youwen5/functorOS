@@ -91,17 +91,13 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      plugins = [
-        (pkgs.hyprlandPlugins.hyprscrolling.overrideAttrs {
-          src = pkgs.fetchFromGitHub {
-            owner = "hyprwm";
-            repo = "hyprland-plugins";
-            rev = "64b7c2dff7e5e1fcb4cb7e5db078947744070e1a";
-            hash = "sha256-1WYjD66gyjj7PVOe7xbho6030FdrIUjh/XpAtp5+ASo=";
-          };
-        })
-      ];
+      plugins = [ ];
       settings = {
+        scrolling = {
+          explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
+          fullscreen_on_one_column = true;
+          focus_fit_method = "1";
+        };
         exec-once = [
           "hyprctl dispatch workspace 100000"
         ]
@@ -222,11 +218,6 @@ in
         };
         input = {
           sensitivity = if config.functorOS.formFactor == "laptop" then "0.0" else "-0.65";
-        };
-        plugin.hyprscrolling = {
-          explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
-          fullscreen_on_one_column = true;
-          focus_fit_method = "1";
         };
       };
     };

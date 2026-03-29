@@ -72,6 +72,7 @@ rec {
             user.name = fullName;
             user.email = email;
           };
+          programs.git.signing.format = "openpgp";
         };
       };
     };

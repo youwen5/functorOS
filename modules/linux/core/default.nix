@@ -196,7 +196,6 @@ in
     })
     (lib.mkIf (config.functorOS.formFactor == "laptop") {
       services.tlp.enable = true;
-      programs.light.enable = true;
     })
     (lib.mkIf cfg.bluetooth.enable {
       hardware.bluetooth = {

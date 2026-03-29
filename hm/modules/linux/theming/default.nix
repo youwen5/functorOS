@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, ... }:
 {
   imports = [ ./stylix.nix ];
   gtk = {
@@ -6,5 +6,6 @@
     iconTheme = {
       name = "Papirus-Dark";
     };
+    gtk4.theme = config.gtk.theme;
   };
 }
