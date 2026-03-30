@@ -39,7 +39,7 @@ in
     };
     nixTrustWheel = lib.mkOption {
       type = lib.types.bool;
-      default = cfg.disable;
+      default = false;
       description = ''
         Whether to allow any user in the group `wheel` to manipulate the Nix store.
 
@@ -196,6 +196,7 @@ in
     })
     (lib.mkIf (config.functorOS.formFactor == "laptop") {
       services.tlp.enable = true;
+      programs.brightnessctl.enable = true;
     })
     (lib.mkIf cfg.bluetooth.enable {
       hardware.bluetooth = {
