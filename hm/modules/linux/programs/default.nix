@@ -91,6 +91,10 @@ in
           "x-scheme-handler/https" = [ desktopFile ];
           "x-scheme-handler/about" = [ desktopFile ];
           "x-scheme-handler/unknown" = [ desktopFile ];
+          "image/*" = lib.mkIf config.functorOS.programs.bulk.desktopApps.enable [
+            "org.gnome.Loupe.desktop"
+          ];
+
         };
     };
 
