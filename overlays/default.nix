@@ -13,11 +13,14 @@ in
     (final: prev: {
       nix-index-unwrapped = prev.nix-index-unwrapped.overrideAttrs (
         finalAttrs: prevAttrs: {
-          src = functorOSInputs.nix-index;
+          inherit (functorOSInputs.nix-index.packages.${pkgs.stdenv.hostPlatform.system}.default)
+            src
+            version
+            ;
 
           cargoDeps = prev.rustPlatform.fetchCargoVendor {
             inherit (finalAttrs) src;
-            hash = "sha256-2Ar7mj9r5eKdbXDC4+jSWG7HvGFTeowEPt2SBM6a6e4=";
+            hash = "sha256-uSR2JvlL2PhnCuVeAJilPK03PzaNbUs9/lPURtnVU9I=";
           };
         }
       );
