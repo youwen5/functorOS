@@ -452,15 +452,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1775614453,
-        "narHash": "sha256-b3bYzg6fHgZbaNucoXYGn5DMuqbBwwiTHMLOUkMnIVA=",
-        "owner": "youwen5",
+        "lastModified": 1778999127,
+        "narHash": "sha256-V5GquqJvAqwFTcpN6hxKSQAtwuJFRUEHmyNKbeaTQDg=",
+        "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "84dfe5ce3e0edd52c4950dbdeb295936a6b6905b",
+        "rev": "f680e0d3c1dbefe298c423691662e238496890f2",
         "type": "github"
       },
       "original": {
-        "owner": "youwen5",
+        "owner": "nix-community",
         "repo": "nix-index-database",
         "type": "github"
       }
