@@ -92,6 +92,7 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       plugins = [ ];
+      configType = "hyprlang";
       settings = {
         scrolling = {
           explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
