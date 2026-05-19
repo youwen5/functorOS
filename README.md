@@ -1,5 +1,8 @@
 # functorOS
 
+This is a modification of functorOS with support for sway and other experimental UI elements.
+All of the core modules are from and will be fetched from upstream functorOS.
+
 A highly experimental NixOS-based Linux distribution, descended from liminalOS.
 
 Currently under heavy development and not suitable for daily use. Please see
@@ -106,6 +109,7 @@ flowchart TB
 ## Reference implementations
 
 - Minimal template --- see [Try it](#try-it).
-- @youwen --- [shezhi](https://code.functor.systems/youwen/shezhi). An advanced
-  functorOS deployment featuring multiple hosts, additional flake inputs, custom
-  configurations, and secret management.
+- @kaitotlex --- [ame](https://github.com/kaitotlex/ame). A simple functorOS deployment relied completely on the flake, including additional flake support, and advanced host configs tailored specifically to the hardware. The primary use case is for functional roll back with the name derived from a fictional detective time traveler.
+<!-- - @youwen --- [shezhi](https://code.functor.systems/youwen/shezhi). An advanced -->
+<!--   functorOS deployment featuring multiple hosts, additional flake inputs, custom -->
+  <!-- configurations, and secret management. -->
