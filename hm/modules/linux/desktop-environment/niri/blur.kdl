@@ -15,6 +15,22 @@ layer-rule {
 }
 
 layer-rule {
-    match namespace="^wallpaper$"
+    match namespace=r#"^dms:bar"#
+    background-effect {
+        xray true
+        blur true
+        noise 0.1
+    }
+}
+
+layer-rule {
+    // This is for swaybg; change for other wallpaper tools.
+    // Find the right namespace by running niri msg layers.
+    match namespace="^hyprpaper$"
     place-within-backdrop true
+}
+
+// Set transparent workspace background color.
+layout {
+    background-color "transparent"
 }
