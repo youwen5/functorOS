@@ -24,8 +24,6 @@ in
           };
         }
       );
-
-      # hyprland = prev.stdenv.mkDerivation { inherit (prev.hyprland) pname version; };
     })
   ];
 }

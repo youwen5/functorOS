@@ -5,10 +5,7 @@
 }:
 {
   imports = [
-    ./hyprland
     ./niri
-    ./waybar
-    ./swaync.nix
   ];
 
   options.functorOS.desktop = {

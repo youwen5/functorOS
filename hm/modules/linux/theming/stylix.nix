@@ -7,9 +7,6 @@
       neovim.enable = false;
       kde.enable = true;
       gnome.enable = true;
-      swaync.enable = false;
-      hyprlock.enable = false;
-      hyprland.enable = false;
       starship.enable = false;
       rofi.enable = false;
       mako.enable = false;

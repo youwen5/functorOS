@@ -37,6 +37,11 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake/very-refactor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -108,6 +113,7 @@
               inputs.agenix.nixosModules.age
               inputs.musnix.nixosModules.musnix
               inputs.run0-sudo-shim.nixosModules.default
+              inputs.niri.nixosModules.niri
               ./modules/default.nix
               ./overlays
               (

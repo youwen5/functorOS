@@ -71,7 +71,7 @@ in
       type = lib.types.bool;
       default = cfg.formFactor == "laptop";
       description = ''
-        Whether to set some options to reduce power consumption (mostly Hyprland).
+        Whether to set some options to reduce power consumption.
       '';
     };
   };

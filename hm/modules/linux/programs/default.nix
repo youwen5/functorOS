@@ -54,11 +54,10 @@ in
         window_padding_width = "8 8";
         confirm_os_window_close = -1;
         enable_audio_bell = "no";
-        background_opacity = pkgs.lib.mkForce "0.8";
         allow_remote_control = "yes";
         listen_on = "unix:/tmp/kitty";
         scrollback_pager = ''nvim --noplugin -c "set signcolumn=no showtabline=0" -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "'';
-        cursor = pkgs.lib.mkForce "#c0caf5";
+        cursor = lib.mkForce "#c0caf5";
         cursor_text_color = lib.mkForce "#1a1b26";
         cursor_trail = 3;
       };

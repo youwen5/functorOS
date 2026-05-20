@@ -16,86 +16,71 @@ in
         Whether to enable the functorOS desktop environment.
       '';
     };
-    hyprland.enable = lib.mkOption {
+    niri.enable = lib.mkOption {
       type = lib.types.bool;
       default = cfg.enable;
       description = ''
-        Whether to enable Hyprland. Sets up a default configuration at the system and user level, and installs xdg-desktop-portal-gtk.
+        Whether to enable Niri. Sets up an opinionated configuration at the system and user level.
       '';
     };
-    niri.enable = lib.mkEnableOption "Niri compositor";
   };
 
   config = lib.mkIf cfg.enable {
-    xdg.portal = lib.mkIf cfg.hyprland.enable {
+    programs.dms-shell = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    };
-
-    programs.hyprland = lib.mkIf cfg.hyprland.enable {
-      enable = true;
-      withUWSM = true;
+      systemd.enable = true;
+      enableDynamicTheming = false;
     };
 
     services.displayManager.sessionPackages = [
       (
         let
-          desktop-file = pkgs.writeText "hyprland-functoros.desktop" ''
-            [Desktop Entry]
-            Name=Hyprland (functorOS)
-            Comment=An intelligent dynamic tiling Wayland compositor
-            Exec=${config.programs.hyprland.package}/bin/start-hyprland --no-nixgl
-            Type=Application
-            DesktopNames=Hyprland
-            Keywords=tiling;wayland;compositor;
-          '';
-          uwsm-file = pkgs.writeText "hyprland-uwsm-functoros.desktop" ''
+          niri-file = pkgs.writeText "functoros.desktop" ''
             [Desktop Entry]
             Name=functorOS Desktop
-            Comment=An intelligent dynamic tiling Wayland compositor
-            Exec=uwsm start -e -D Hyprland ${desktop-file}
+            Comment=Niri
+            Exec=uwsm start -F -- ${config.programs.niri.package}/bin/niri-session
             TryExec=uwsm
-            DesktopNames=Hyprland
+            DesktopNames=Niri
             Type=Application
           '';
         in
         pkgs.stdenvNoCC.mkDerivation {
-          pname = "functoros-hyprland-desktop";
-          version = config.programs.hyprland.package.version;
+          pname = "functoros-desktops";
+          version = config.programs.niri.package.version;
 
           phases = [ "installPhase" ];
 
           installPhase = ''
             mkdir -p $out/share/wayland-sessions
-            cp ${uwsm-file} $out/share/wayland-sessions/hyprland-functoros.desktop
+            cp ${niri-file} $out/share/wayland-sessions/functoros.desktop
           '';
 
           passthru.providedSessions = [
-            "hyprland-functoros"
+            "functoros"
           ];
         }
       )
     ];
 
-    # nixpkgs.overlays = [
-    #   (final: prev: {
-    #     hyprland = prev.hyprland.overrideAttrs (
-    #       finalAttrs: prevAttrs: {
-    #         nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ prev.makeWrapper ];
-    #         postInstall = prevAttrs.postInstall + ''
-    #           wrapProgram $out/bin/start-hyprland \
-    #             --add-flags "--no-nixgl"
-    #         '';
-    #       }
-    #     );
-    #   })
-    # ];
+    programs.uwsm = {
+      enable = true;
+      niri = lib.mkIf (config.programs ? niri) {
+        prettyName = "Niri (uwsm)";
+        comment = "Niri compositor managed by UWSM";
+        binPath = "${config.programs.niri.package}/bin/niri-session";
+      };
+    };
 
-    programs.uwsm.enable = true;
+    programs.niri = {
+      enable = cfg.niri.enable;
+      useNautilus = cfg.niri.enable;
+      package = pkgs.niri;
+    };
 
-    programs.niri.enable = cfg.niri.enable;
+    environment.systemPackages = lib.mkIf cfg.niri.enable [ pkgs.xwayland-satellite ];
 
-    programs.xwayland.enable = lib.mkIf cfg.niri.enable (lib.mkForce true);
+    niri-flake.cache.enable = false;
 
     services.xserver.enable = false;
 

@@ -1,0 +1,20 @@
+window-rule {
+    background-effect {
+        xray true
+        blur true
+        noise 0.5
+        saturation 3
+    }
+}
+
+layer-rule {
+    match namespace=r#"^dms:.*"#
+    background-effect {
+        xray false
+    }
+}
+
+layer-rule {
+    match namespace="^wallpaper$"
+    place-within-backdrop true
+}
