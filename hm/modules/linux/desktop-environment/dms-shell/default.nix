@@ -35,6 +35,7 @@ in
         acSuspendBehavior = 0;
         acProfileName = "2";
         acPostLockMonitorTimeout = 120;
+        showOccupiedWorkspacesOnly = true;
         batteryMonitorTimeout = 300;
         batteryLockTimeout = 600;
         batterySuspendTimeout = 900;
