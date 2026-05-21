@@ -144,6 +144,7 @@ in
             thunderbird
             nautilus
             nicotine-plus # soulseek client
+            celluloid
             gapless # music player
             loupe # image viewer
             bitwarden-desktop # password manager
