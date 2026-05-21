@@ -26,12 +26,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.dms-shell = {
-      enable = true;
-      systemd.enable = true;
-      enableDynamicTheming = false;
-    };
-
     services.displayManager.sessionPackages = [
       (
         let
@@ -81,6 +75,8 @@ in
     environment.systemPackages = lib.mkIf cfg.niri.enable [ pkgs.xwayland-satellite ];
 
     niri-flake.cache.enable = false;
+
+    systemd.user.services.niri-flake-polkit.enable = false;
 
     services.xserver.enable = false;
 

@@ -6,6 +6,7 @@
 {
   imports = [
     ./niri
+    ./dms-shell
   ];
 
   options.functorOS.desktop = {

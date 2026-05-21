@@ -34,8 +34,6 @@ in
             pkgs.bibata-cursors
           ]);
 
-        services.hyprpaper.enable = true;
-
         programs.rofi = {
           enable = true;
           terminal = "${lib.getExe pkgs.kitty}";
@@ -101,7 +99,7 @@ in
         programs.niri =
           with config.lib.niri.actions;
           let
-            dms = "${lib.getExe osConfig.programs.dms-shell.package}";
+            dms = "${lib.getExe config.programs.dank-material-shell.package}";
             ipc =
               xs:
               [

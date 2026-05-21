@@ -42,6 +42,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dms-shell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -146,6 +151,8 @@
               inputs.spicetify.homeManagerModules.default
               inputs.agenix.homeManagerModules.age
               inputs.onibotoke.homeManagerModules.default
+              inputs.dms-shell.homeModules.dank-material-shell
+              inputs.dms-shell.homeModules.niri
               ./hm/modules/default.nix
             ];
           };
