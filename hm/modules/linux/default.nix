@@ -26,7 +26,6 @@
     #   nix flake update --commit-lock-file
     #   doas nixos-rebuild --flake ~/.config/functorOS\#${osConfig.networking.hostName} switch &| nom
     # '';
-    spt = "${lib.getExe pkgs.spotify-player}";
   };
 
   services.gnome-keyring.enable = true;

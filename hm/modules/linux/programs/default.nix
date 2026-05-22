@@ -66,8 +66,6 @@ in
       };
     };
 
-    programs.spotify-player.enable = true;
-
     programs.neovide = {
       enable = false;
       settings = {
