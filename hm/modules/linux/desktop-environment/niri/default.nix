@@ -247,7 +247,7 @@ in
                 "Mod+B".action.spawn = "${lib.getExe config.functorOS.programs.defaultBrowser}";
                 "Mod+M".action.spawn = "${lib.getExe pkgs.thunderbird}";
                 "Mod+E".action.spawn = "${lib.getExe pkgs.nautilus}";
-                "Mod+x".action.spawn-sh = "pkill -x rofi || rofi -show window";
+                "Super+x".action.spawn-sh = "pkill -x rofi || rofi -show window";
 
                 "Mod+Space" = {
                   hotkey-overlay.title = "Application Launcher";
