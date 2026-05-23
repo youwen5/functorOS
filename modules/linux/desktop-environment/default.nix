@@ -26,46 +26,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.displayManager.sessionPackages = [
-      (
-        let
-          niri-file = pkgs.writeText "functoros.desktop" ''
-            [Desktop Entry]
-            Name=functorOS Desktop
-            Comment=Niri
-            Exec=uwsm start -F -- ${config.programs.niri.package}/bin/niri-session
-            TryExec=uwsm
-            DesktopNames=Niri
-            Type=Application
-          '';
-        in
-        pkgs.stdenvNoCC.mkDerivation {
-          pname = "functoros-desktops";
-          version = config.programs.niri.package.version;
-
-          phases = [ "installPhase" ];
-
-          installPhase = ''
-            mkdir -p $out/share/wayland-sessions
-            cp ${niri-file} $out/share/wayland-sessions/functoros.desktop
-          '';
-
-          passthru.providedSessions = [
-            "functoros"
-          ];
-        }
-      )
-    ];
-
-    programs.uwsm = {
-      enable = true;
-      niri = lib.mkIf (config.programs ? niri) {
-        prettyName = "Niri (uwsm)";
-        comment = "Niri compositor managed by UWSM";
-        binPath = "${config.programs.niri.package}/bin/niri-session";
-      };
-    };
-
     programs.niri = {
       enable = cfg.niri.enable;
       useNautilus = cfg.niri.enable;
