@@ -106,6 +106,8 @@ in
 
       services.upower.enable = true;
 
+      services.power-profiles-daemon.enable = true;
+
       services.gnome.gnome-keyring.enable = true;
 
       services.resolved.enable = true;
