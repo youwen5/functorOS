@@ -93,6 +93,11 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixathena = {
+      url = "git+https://forgejo.mit.edu/SIPB/nixathena.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -119,6 +124,7 @@
               inputs.musnix.nixosModules.musnix
               inputs.run0-sudo-shim.nixosModules.default
               inputs.niri.nixosModules.niri
+              inputs.nixathena.nixosModules.default
               ./modules/default.nix
               ./overlays
               (
