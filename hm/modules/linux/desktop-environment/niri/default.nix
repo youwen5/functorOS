@@ -17,6 +17,13 @@ in
         Whether to enable and rice Niri.
       '';
     };
+    reduceMotion = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Whether to remove overshoots from window animations and speed them up.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable (
@@ -114,7 +121,8 @@ in
             settings = {
               includes = [
                 ./blur.kdl
-              ];
+              ]
+              ++ lib.optionals (!cfg.reduceMotion) [ ./anim.kdl ];
               prefer-no-csd = true;
               window-rules = [
                 {
