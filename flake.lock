@@ -568,11 +568,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779559875,
-        "narHash": "sha256-d18iYRhSIcA6ZlV3mnSzRMUZZ+F9xY1MqD+O2iIo59Y=",
+        "lastModified": 1779821282,
+        "narHash": "sha256-8SYTOFTotTi1NQbAj04ZUCtlq+7TuT99v293zjaTN+s=",
         "ref": "refs/heads/main",
-        "rev": "4787d3d8ee1a6292868a93624d08c3a780e5e139",
-        "revCount": 79,
+        "rev": "b915573da3322807f68b0b3289c30778591f6b52",
+        "revCount": 91,
         "type": "git",
         "url": "https://forgejo.mit.edu/SIPB/nixathena.git"
       },
