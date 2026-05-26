@@ -24,6 +24,9 @@ in
   };
 
   config = {
+    environment.variables = {
+      XMODIFIERS = "@im=fcitx";
+    };
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";
