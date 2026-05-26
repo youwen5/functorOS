@@ -61,20 +61,6 @@ in
           FakeNitro.enabled = true;
           YoutubeAdblock.enabled = true;
           WhoReacted.enabled = true;
-          LastFMRichPresence = {
-            enabled = true;
-            hideWithActivity = false;
-            hideWithSpotify = true;
-            shareUsername = false;
-            shareSong = true;
-            statusName = "some music";
-            nameFormat = "artist";
-            useListeningStatus = true;
-            missingArt = "lastfmLogo";
-            showLastFmLogo = true;
-            username = "couscousdude";
-            apiKey = "8cf7c619e321677733819dbcc0411c10";
-          };
           SpotifyCrack.enabled = true;
           VolumeBooster.enabled = true;
           "WebRichPresence (arRPC)".enabled = true;
