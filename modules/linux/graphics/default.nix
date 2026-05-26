@@ -64,8 +64,30 @@ in
 
     functorOS.config.extraUnfreePackages = lib.mkIf cfg.nvidia.enable [
       "nvidia-x11"
-      "nvidia-settings"
       "cuda_cudart"
+      "libcublas"
+      "cuda_cccl"
+      "cuda_nvcc"
+      "nvidia-settings"
+      "libnpp"
+      "libcufft"
+      "cuda-merged"
+      "cuda_cuobjdump"
+      "cuda_gdb"
+      "cuda_nvdisasm"
+      "cuda_nvprune"
+      "cuda_cupti"
+      "cuda_cuxxfilt"
+      "cuda_nvml_dev"
+      "cuda_nvrtc"
+      "cuda_nvtx"
+      "cuda_profiler_api"
+      "cuda_sanitizer_api"
+      "libcurand"
+      "libcusolver"
+      "libnvjitlink"
+      "libcusparse"
+      "cudnn"
     ];
 
     assertions = [
