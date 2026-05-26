@@ -3,7 +3,7 @@
   lib,
   pkgs,
   osConfig,
-  functorOSInputs,
+  _functorOSInputs,
   ...
 }:
 let

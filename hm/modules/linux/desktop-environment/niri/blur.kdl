@@ -1,6 +1,6 @@
 window-rule {
     background-effect {
-        xray true
+        xray false
         blur true
         noise 0.5
         saturation 3
@@ -17,7 +17,7 @@ layer-rule {
 layer-rule {
     match namespace=r#"^dms:bar"#
     background-effect {
-        xray true
+        xray false
         blur true
         noise 0.1
     }

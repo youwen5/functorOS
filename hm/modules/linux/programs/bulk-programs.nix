@@ -1,6 +1,6 @@
 {
   config,
-  osConfig,
+  _osConfig,
   pkgs,
   lib,
   ...
@@ -48,7 +48,7 @@ in
         splashBackground = "#${config.lib.stylix.colors.base01}";
         splashColor = "#${config.lib.stylix.colors.base05}";
         hardwareAcceleration = true;
-        discordBranch = "stable";
+        discordBranch = "ptb";
       };
       vencord.settings = {
         autoUpdate = false;
@@ -61,20 +61,6 @@ in
           FakeNitro.enabled = true;
           YoutubeAdblock.enabled = true;
           WhoReacted.enabled = true;
-          LastFMRichPresence = {
-            enabled = true;
-            hideWithActivity = false;
-            hideWithSpotify = true;
-            shareUsername = false;
-            shareSong = true;
-            statusName = "some music";
-            nameFormat = "artist";
-            useListeningStatus = true;
-            missingArt = "lastfmLogo";
-            showLastFmLogo = true;
-            username = "couscousdude";
-            apiKey = "8cf7c619e321677733819dbcc0411c10";
-          };
           SpotifyCrack.enabled = true;
           VolumeBooster.enabled = true;
           "WebRichPresence (arRPC)".enabled = true;

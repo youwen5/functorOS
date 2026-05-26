@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  _pkgs,
   osConfig,
   ...
 }:
@@ -36,6 +36,7 @@ in
         acProfileName = "2";
         acPostLockMonitorTimeout = 120;
         showOccupiedWorkspacesOnly = true;
+        use24HourClock = false;
         batteryMonitorTimeout = 300;
         batteryLockTimeout = 600;
         batterySuspendTimeout = 900;
@@ -68,13 +69,8 @@ in
                 enabled = true;
                 focusedWindowSize = 1;
               }
-              {
-                id = "clock";
-                enabled = true;
-                clockCompactMode = true;
-              }
             ];
-            centerWidgets = [ ];
+            centerWidgets = [];
             rightWidgets = [
               {
                 id = "systemTray";
@@ -100,6 +96,11 @@ in
                 id = "controlCenterButton";
                 enabled = true;
               }
+              {
+                id = "clock";
+                enabled = true;
+                clockCompactMode = true;
+              }
             ];
             spacing = 4;
             innerPadding = 4;
@@ -116,9 +117,9 @@ in
             borderOpacity = 1;
             borderThickness = 1;
             fontScale = 1;
-            autoHide = false;
+            autoHide = true;
             autoHideDelay = 250;
-            openOnOverview = false;
+            openOnOverview = true;
             visible = true;
             popupGapsAuto = true;
             popupGapsManual = 4;

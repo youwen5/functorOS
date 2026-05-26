@@ -1,0 +1,65 @@
+animations {
+    // Uncomment to turn off all animations.
+    // You can also put "off" into each individual animation to disable it.
+    // off
+
+    // Slow down all animations by this factor. Values below 1 speed them up instead.
+    // slowdown 3.0
+
+    // Individual animations.
+
+    workspace-switch {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    window-open {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    window-close {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 800
+    }
+
+    horizontal-view-movement {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    window-movement {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    window-resize {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    config-notification-open-close {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    exit-confirmation-open-close {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    screenshot-ui-open {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    overview-open-close {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+
+    recent-windows-close {
+        curve "cubic-bezier" 0.5 -1 0.5 2
+        duration-ms 600
+    }
+}
