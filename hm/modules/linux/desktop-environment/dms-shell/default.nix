@@ -26,7 +26,7 @@ in
       systemd.restartIfChanged = true;
       niri = {
         enableKeybinds = false;
-        includes.override = false;
+        includes.override = true;
       };
       settings = {
         acMonitorTimeout = 600;
