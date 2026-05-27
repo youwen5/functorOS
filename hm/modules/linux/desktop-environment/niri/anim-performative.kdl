@@ -14,8 +14,8 @@ animations {
     }
 
     window-open {
-        curve "cubic-bezier" 0.5 -1 0.5 1.33
-        duration-ms 400
+        curve "cubic-bezier" 0.5 -1 0.5 1.5
+        duration-ms 600
     }
 
     window-close {
@@ -25,17 +25,17 @@ animations {
 
     horizontal-view-movement {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 900
+        duration-ms 750
     }
 
     window-movement {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 900
+        duration-ms 750
     }
 
     window-resize {
         curve "cubic-bezier" 0.5 -0.5 0.5 1.5
-        duration-ms 600
+        duration-ms 500
     }
 
     config-notification-open-close {
@@ -50,7 +50,7 @@ animations {
 
     screenshot-ui-open {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 900
+        duration-ms 600
     }
 
     overview-open-close {

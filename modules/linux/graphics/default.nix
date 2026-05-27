@@ -64,7 +64,7 @@ in
     services.ollama = {
       enable = true;
       package = lib.mkIf cfg.nvidia.enable pkgs.ollama-cuda;
-      loadModels = [ "phi4-reasoning" "phi4-mini-reasoning" "qwen2.5-coder:7b" ];
+      loadModels = [ "phi4-reasoning" "phi4" "phi4-mini-reasoning" "phi4-mini" "qwen2.5-coder:7b" ];
     };
 
     functorOS.config.extraUnfreePackages = lib.mkIf cfg.nvidia.enable [
