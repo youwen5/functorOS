@@ -145,7 +145,7 @@ in
                 empty-workspace-above-first = true;
                 always-center-single-column = true;
                 default-column-width.proportion = 0.5;
-                default-column-display = "tabbed";
+                default-column-display = "stacked";
                 preset-column-widths = [
                   { proportion = 0.33333; }
                   { proportion = 0.5; }
