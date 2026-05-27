@@ -23,11 +23,19 @@ in
         Whether to enable Niri. Sets up an opinionated configuration at the system and user level.
       '';
     };
+    niri.performative = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Whether to enable performative window animations.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
     programs.niri = {
       enable = cfg.niri.enable;
+      performative = cfg.niri.performative;
       useNautilus = cfg.niri.enable;
       package = pkgs.niri;
     };

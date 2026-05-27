@@ -19,7 +19,7 @@ in
     };
     performative = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = osConfig.functorOS.desktop.niri.performative;
       description = ''
         Whether to enable performative window animations.
       '';
