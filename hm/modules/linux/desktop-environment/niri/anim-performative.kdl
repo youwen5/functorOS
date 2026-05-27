@@ -9,32 +9,32 @@ animations {
     // Individual animations.
 
     workspace-switch {
-        curve "cubic-bezier" 0.5 -1 0.5 2
+        curve "cubic-bezier" 0.5 0.0 0.5 1.0
         duration-ms 600
     }
 
     window-open {
-        curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 600
+        curve "cubic-bezier" 0.5 -1 0.5 1.33
+        duration-ms 400
     }
 
     window-close {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 800
+        duration-ms 600
     }
 
     horizontal-view-movement {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 600
+        duration-ms 900
     }
 
     window-movement {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 600
+        duration-ms 900
     }
 
     window-resize {
-        curve "cubic-bezier" 0.5 -1 0.5 2
+        curve "cubic-bezier" 0.5 -0.5 0.5 1.5
         duration-ms 600
     }
 
@@ -50,12 +50,12 @@ animations {
 
     screenshot-ui-open {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 600
+        duration-ms 900
     }
 
     overview-open-close {
         curve "cubic-bezier" 0.5 -1 0.5 2
-        duration-ms 600
+        duration-ms 900
     }
 
     recent-windows-close {

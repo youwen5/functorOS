@@ -137,7 +137,7 @@ in
                   clip-to-geometry = true;
                   open-fullscreen = false;
                   draw-border-with-background = false;
-                  opacity = if cfg.performative then 0.825 else 0.95;
+                  opacity = if cfg.performative then 0.875 else 0.95;
                 }
               ];
               layout = {
@@ -163,7 +163,7 @@ in
                 };
                 focus-ring = {
                   enable = true;
-                  width = if cfg.performative then 4.0 else 2.0;
+                  width = if cfg.performative then 3.0 else 2.0;
                   active.gradient = {
                     from = "${config.lib.stylix.colors.withHashtag.base0A}";
                     to = "${config.lib.stylix.colors.withHashtag.base0D}";

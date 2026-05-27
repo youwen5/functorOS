@@ -6,6 +6,7 @@
   ...
 }:
 let
+  niriCfg = config.functorOS.desktop.niri;
   cfg = config.functorOS.desktop.dms-shell;
 in
 {
@@ -26,7 +27,7 @@ in
       systemd.restartIfChanged = true;
       niri = {
         enableKeybinds = false;
-        includes.override = true;
+        includes.override = false;
       };
       settings = {
         acMonitorTimeout = 600;
@@ -103,10 +104,10 @@ in
               }
             ];
             spacing = 4;
-            innerPadding = 4;
-            bottomGap = 0;
-            transparency = 1;
-            widgetTransparency = 1;
+            innerPadding = if niriCfg.performative then 6 else 4;
+            bottomGap = if niriCfg.performative then 4 else 0;
+            transparency = if niriCfg.performative then 0.75 else 1;
+            widgetTransparency = if niriCfg.performative then 0.8 else 1;
             squareCorners = false;
             noBackground = false;
             gothCornersEnabled = false;
@@ -118,7 +119,7 @@ in
             borderThickness = 1;
             fontScale = 1;
             autoHide = true;
-            autoHideDelay = 250;
+            autoHideDelay = 750;
             openOnOverview = true;
             visible = true;
             popupGapsAuto = true;
