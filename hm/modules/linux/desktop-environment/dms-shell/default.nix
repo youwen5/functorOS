@@ -103,9 +103,9 @@ in
                 clockCompactMode = true;
               }
             ];
-            spacing = 4;
-            innerPadding = if niriCfg.performative then 6 else 4;
-            bottomGap = if niriCfg.performative then 4 else 0;
+            spacing = if niriCfg.performative then 8 else 4;
+            innerPadding = if niriCfg.performative then 8 else 4;
+            bottomGap = if niriCfg.performative then 8 else 0;
             transparency = if niriCfg.performative then 0.75 else 1;
             widgetTransparency = if niriCfg.performative then 0.8 else 1;
             squareCorners = false;
