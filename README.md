@@ -1,12 +1,20 @@
 # functorOS
 
-A highly experimental NixOS-based Linux distribution, descended from liminalOS.
+A highly experimental NixOS-based Linux distribution, maintained by the
+functor.systems community.
 
-Currently under heavy development and not suitable for daily use. Please see
-[the project wiki](https://code.functor.systems/functor.systems/functorOS/wiki)
-for more details.
+We believe functorOS is now suitable for daily use by curious users. It ships a
+curated Niri + Dank Linux desktop environment. Please see [the project
+wiki](https://code.functor.systems/functor.systems/functorOS/wiki) for more
+details.
 
-See [os.functor.systems](https://os.functor.systems/) for module options.
+Also, every functorOS machine can be deployed as a [MIT
+Athena](https://en.wikipedia.org/wiki/Project_Athena) workstation via the
+bundled [nixathena](https://forgejo.mit.edu/SIPB/nixathena). Not sure why you'd
+like to do this, but you certainly can.
+
+See [os.functor.systems](https://os.functor.systems/) for functorOS module
+options.
 
 ## Try it
 
