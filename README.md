@@ -4,12 +4,12 @@ A highly experimental NixOS-based Linux distribution, maintained by the
 functor.systems community.
 
 We believe functorOS is now suitable for daily use by curious users. It ships a
-curated Niri + Dank Linux desktop environment. Please see [the project
-wiki](https://code.functor.systems/functor.systems/functorOS/wiki) for more
-details.
+curated Niri + Dank Linux desktop environment. Please see
+[the project wiki](https://code.functor.systems/functor.systems/functorOS/wiki)
+for more details.
 
-Also, every functorOS machine can be deployed as a [MIT
-Athena](https://en.wikipedia.org/wiki/Project_Athena) workstation via the
+Also, every functorOS machine can be deployed as a
+[MIT Athena](https://en.wikipedia.org/wiki/Project_Athena) workstation via the
 bundled [nixathena](https://forgejo.mit.edu/SIPB/nixathena). Not sure why you'd
 like to do this, but you certainly can.
 
@@ -33,4 +33,6 @@ nix flake init -t "git+https://code.functor.systems/functor.systems/functorOS"
 - @youwen --- [shezhi](https://code.functor.systems/youwen/shezhi). An advanced
   functorOS deployment featuring multiple hosts, additional flake inputs, custom
   configurations, and secret management.
-- @q9i --- [netsanet](https://code.functor.systems/q9i/netsanet). A simple single-host functorOS deployment optimized for daily use on generic laptops, with special support for NVIDIA GPU settings and high performance computing
+- @q9i --- [netsanet](https://code.functor.systems/q9i/netsanet). A simple
+  single-host functorOS deployment optimized for daily use on generic laptops,
+  with special support for NVIDIA GPU settings and high performance computing
