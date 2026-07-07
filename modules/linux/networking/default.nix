@@ -24,7 +24,7 @@ in
   options.functorOS.system.networking = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = config.functorOS.enable;
+      default = config.functorOS.enable && !config.functorOS.wsl.enable;
       description = ''
         Whether to enable networking features.
       '';
