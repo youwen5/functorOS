@@ -10,6 +10,8 @@
 
 {
   # Only being set so that the assertion below triggers instead.
+  # If you are using NixOS-WSL, keep only the below lines are simply remove the assertion;
+  # no separate hardware configuration is necessary.
   nixpkgs.hostPlatform = {
     system = "x86_64-linux";
   };

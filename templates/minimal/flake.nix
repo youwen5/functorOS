@@ -176,6 +176,10 @@
                 # to enable some UX enhanacements
                 flakeLocation = null;
 
+                # Uncomment the below line for functorOS to work with NixOS-WSL;
+                # only do this if you are running functorOS in a WSL container
+                # wsl.enable = true;
+
                 # Allow functorOS's unfree packages
                 # This option doesn't set allowUnfree for the whole system,
                 # rather, it simply allows a specifically curated list of
