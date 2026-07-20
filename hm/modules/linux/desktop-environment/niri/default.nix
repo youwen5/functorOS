@@ -163,11 +163,23 @@ in
                   active.gradient = {
                     from = "${config.lib.stylix.colors.withHashtag.base0A}";
                     to = "${config.lib.stylix.colors.withHashtag.base09}";
+                    relative-to = "workspace-view";
                   };
                   # inactive.gradient = {
                   #   from = "${config.lib.stylix.colors.withHashtag.base01}";
                   #   to = "${config.lib.stylix.colors.withHashtag.base02}";
                   # };
+                };
+                shadow = {
+                  enable = true;
+                  softness = 30;
+                  spread = 5;
+                  offset = {
+                    x = 0;
+                    y = 5;
+                  };
+                  draw-behind-window = false;
+                  color = if osConfig.stylix.polarity == "light" then "#00000070" else "#12121270";
                 };
               };
               input.touchpad = {
