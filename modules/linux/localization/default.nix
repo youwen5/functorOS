@@ -16,6 +16,7 @@ in
   options.functorOS.desktop.localization = {
     spanish.input.enable = lib.mkEnableOption "Spanish input method using fcitx5.";
     chinese.input.enable = lib.mkEnableOption "Chinese input method using fcitx5.";
+    lean.input.enable = lib.mkEnableOption "Lean input method using fcitx5.";
     chinese.script = lib.mkOption {
       type = lib.types.enum [
         "simplified"
@@ -40,8 +41,8 @@ in
         (with pkgs; [
           fcitx5-gtk
           fcitx5-tokyonight
-          fcitx5-lean
         ])
+        ++ (lib.optionals cfg.lean.input.enable [ fcitx5-lean ])
         ++ lib.optionals cfg.chinese.input.enable [ pkgs.qt6Packages.fcitx5-chinese-addons ];
 
       fcitx5.settings.globalOptions = {
@@ -131,7 +132,7 @@ in
           # Default Input Method
           DefaultIM = lib.mkIf cfg.chinese.input.enable "pinyin";
         };
-        "Groups/0/Items/0" = {
+        "Groups/0/Items/0" = lib.mkIf cfg.lean.input.enable {
           # Name
           Name = "lean";
           # Layout
