@@ -138,6 +138,18 @@
                   nixpkgs.overlays = [
                     (final: prev: {
                       zen-browser = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
+                      niri = prev.niri.override {
+                        libdisplay-info = prev.libdisplay-info.overrideAttrs (_oldAttrs: rec {
+                          version = "0.3.0";
+                          src = final.fetchFromGitLab {
+                            domain = "gitlab.freedesktop.org";
+                            owner = "emersion";
+                            repo = "libdisplay-info";
+                            rev = version;
+                            hash = "sha256-nXf2KGovNKvcchlHlzKBkAOeySMJXgxMpbi5z9gLrdc=";
+                          };
+                        });
+                      };
                     })
                   ];
                   # instead of using ragenix from agenix which builds from
@@ -158,7 +170,6 @@
               inputs.agenix.homeManagerModules.age
               inputs.onibotoke.homeManagerModules.default
               inputs.dms-shell.homeModules.dank-material-shell
-              inputs.dms-shell.homeModules.niri
               ./hm/modules/default.nix
             ];
           };
