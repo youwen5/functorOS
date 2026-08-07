@@ -44,9 +44,7 @@ in
         disableMinSize = true;
         minimizeToTray = true;
         tray = true;
-        splashTheming = true;
-        splashBackground = "#${config.lib.stylix.colors.base01}";
-        splashColor = "#${config.lib.stylix.colors.base05}";
+        splashTheming = false;
         hardwareAcceleration = true;
         discordBranch = "stable";
       };
