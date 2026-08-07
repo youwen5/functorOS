@@ -6,11 +6,6 @@
 }:
 let
   cfg = config.functorOS.desktop.localization;
-  fcitx5-lean = pkgs.callPackage (pkgs.fetchgit {
-    url = "https://git.unnamed.website/fcitx5-lean";
-    rev = "09f4c75509da34ee9438eabac41174a1fbe249ae";
-    hash = "sha256-5mbdh8oOBIIDAaBb9gfTigmX38rBefLKclGPJeCI9nQ=";
-  }) { };
 in
 {
   options.functorOS.desktop.localization = {
@@ -40,7 +35,6 @@ in
         (with pkgs; [
           fcitx5-gtk
           fcitx5-tokyonight
-          fcitx5-lean
         ])
         ++ lib.optionals cfg.chinese.input.enable [ pkgs.qt6Packages.fcitx5-chinese-addons ];
 
