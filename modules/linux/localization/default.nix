@@ -33,7 +33,7 @@ in
       XMODIFIERS = "@im=fcitx";
     };
     i18n.inputMethod = {
-      enable = true;
+      enable = config.functorOS.wsl.enable;
       type = "fcitx5";
       fcitx5.waylandFrontend = true;
       fcitx5.addons =
