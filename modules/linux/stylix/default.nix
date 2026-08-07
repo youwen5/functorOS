@@ -54,8 +54,8 @@ in
 
   config = lib.mkIf cfg.enable {
     stylix = {
-      enable = true;
-      image = null;
+      enable = false;
+      image = lib.mkIf (cfg.wallpaper != null) cfg.wallpaper;
       base16Scheme = lib.mkIf (cfg.base16Scheme != null) cfg.base16Scheme;
       polarity = lib.mkIf (cfg.polarity != null) cfg.polarity;
       opacity.popups = 0.9;
