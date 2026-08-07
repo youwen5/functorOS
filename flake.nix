@@ -123,7 +123,6 @@
               inputs.agenix.nixosModules.age
               inputs.musnix.nixosModules.musnix
               inputs.run0-sudo-shim.nixosModules.default
-              inputs.niri.nixosModules.niri
               inputs.nixathena.nixosModules.default
               ./modules/default.nix
               ./overlays

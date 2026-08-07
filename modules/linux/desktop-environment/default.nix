@@ -26,12 +26,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.niri = {
-      enable = cfg.niri.enable;
-      useNautilus = cfg.niri.enable;
-      package = pkgs.niri;
-    };
-
     environment.systemPackages = lib.mkIf cfg.niri.enable [ pkgs.xwayland-satellite ];
 
     niri-flake.cache.enable = false;

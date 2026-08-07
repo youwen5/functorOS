@@ -5,7 +5,6 @@
 }:
 {
   imports = [
-    ./niri
     ./dms-shell
   ];
 
