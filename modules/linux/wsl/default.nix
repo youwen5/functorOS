@@ -9,6 +9,9 @@ in
 {
   options.functorOS.wsl = {
     enable = lib.mkEnableOption "WSL";
+    username = lib.mkOption {
+      type = lib.types.str;
+    };
   };
 
   config = {
@@ -29,7 +32,7 @@ in
     
     wsl = lib.mkIf cfg.enable {
       enable = true;
-      defaultUser = config.functorOS.username;
+      defaultUser = cfg.username;
       useWindowsDriver = true;
     };
   };
