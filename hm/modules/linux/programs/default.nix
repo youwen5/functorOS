@@ -66,8 +66,6 @@ in
       };
     };
 
-    programs.chafa.enable = true;
-
     programs.neovide = {
       enable = false;
       settings = {
