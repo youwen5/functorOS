@@ -169,7 +169,6 @@
               inputs.spicetify.homeManagerModules.default
               inputs.agenix.homeManagerModules.age
               inputs.onibotoke.homeManagerModules.default
-              inputs.dms-shell.homeModules.dank-material-shell
               ./hm/modules/default.nix
             ];
           };
