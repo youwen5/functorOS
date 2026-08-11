@@ -44,7 +44,7 @@ rec {
     {
       config = {
         users.users.${username} = {
-          shell = nixpkgs.lib.mkOverride 999 pkgs.fish;
+          shell = nixpkgs.lib.mkOverride 999 pkgs.bash;
           isNormalUser = true;
           description = fullName;
           extraGroups =
