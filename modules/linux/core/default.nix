@@ -114,6 +114,8 @@ in
 
       boot.tmp.cleanOnBoot = true;
 
+      services.envfs.enable = config.functorOS.wsl.enable;
+
       hardware.enableRedistributableFirmware = true;
 
       programs.gnupg.agent = {
