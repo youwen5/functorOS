@@ -7,12 +7,6 @@
 let
   cfg = config.functorOS.system.audio.prod;
   forAllUsers = lib.genAttrs cfg.realtimeAudioUsers;
-  wine = pkgs.wineWowPackages.full;
-  overrideWine =
-    package:
-    (package.override {
-      inherit wine;
-    });
 in
 {
   options.functorOS.system.audio.prod = {
@@ -38,8 +32,8 @@ in
         };
 
         environment.systemPackages = with pkgs; [
-          (overrideWine yabridge)
-          (overrideWine yabridgectl)
+          yabridge
+          yabridgectl
           alsa-scarlett-gui
         ];
 
