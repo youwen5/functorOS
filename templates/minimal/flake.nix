@@ -97,7 +97,7 @@
       };
     in
     {
-      # Execute sudo nixos-rebuild switch --flake .#functorOS
+      # Execute nixos-rebuild switch --sudo --flake .#functorOS
       nixosConfigurations = {
         # If you change your hostname, make sure to set it in both places (i.e. both of the lines below).
         functorOS-machine = functorOSLib.system.instantiate {

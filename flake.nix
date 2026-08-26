@@ -84,11 +84,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    run0-sudo-shim = {
-      url = "github:LordGrimmauld/run0-sudo-shim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
