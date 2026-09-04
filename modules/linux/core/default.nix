@@ -142,6 +142,7 @@ in
       security.run0.enable = true;
       security.run0.persistentAuth.enable = true;
       security.run0.sudo-shim.enable = true;
+      security.sudo.enable = false;
     })
     (lib.mkIf cfg.nixSaneDefaults {
       nix = {
