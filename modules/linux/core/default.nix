@@ -139,7 +139,9 @@ in
     })
     (lib.mkIf cfg.replaceSudoWithRun0 {
       security.polkit.persistentAuthentication = true;
-      security.run0-sudo-shim.enable = true;
+      security.run0.enable = true;
+      security.run0.persistentAuth.enable = true;
+      security.run0.sudo-dhim.enable = true;
     })
     (lib.mkIf cfg.nixSaneDefaults {
       nix = {
