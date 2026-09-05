@@ -2,7 +2,7 @@ window-rule {
     background-effect {
         xray true
         blur true
-        noise 0.5
+        noise 0.3
         saturation 3
     }
 }
