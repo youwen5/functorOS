@@ -124,6 +124,7 @@ in
               ]
               ++ lib.optionals (!cfg.reduceMotion) [ ./anim.kdl ];
               prefer-no-csd = true;
+              cursor.hide-when-typing = true;
               window-rules = [
                 {
                   geometry-corner-radius = {
@@ -275,6 +276,11 @@ in
                     "spotlight"
                     "toggle"
                   ];
+                };
+
+                "Mod+z" = {
+                  hotkey-overlay.title = "Keyboard cursor";
+                  action.spawn-sh = "pkill -x wl-kbptr || ${lib.getExe pkgs.wl-kbptr}";
                 };
 
                 "Mod+Q".action = close-window;
