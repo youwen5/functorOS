@@ -84,7 +84,7 @@ in
                       stdenv.cc.cc
                     ]
                   }" \
-                  --prefix PIPEWIRE_LATENCY : "128/48000"
+                  --prefix PIPEWIRE_LATENCY : "256/48000"
 
                 mkdir $out/bin
                 ln -s $out/opt/REAPER/reaper $out/bin/
