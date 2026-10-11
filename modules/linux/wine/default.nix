@@ -15,7 +15,7 @@ in
       with pkgs;
       [
         winetricks
-        wineWow64Packages.full
+        wineWow64Packages.yabridge
       ]
     );
   };
