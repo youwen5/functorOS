@@ -74,11 +74,12 @@ in
           def --env --wrapped z [...rest: string@"nu-complete zoxide path"] {
             __zoxide_z ...$rest
           }
-
-          $env.config.hooks.command_not_found = source ${pkgs.nix-index-unwrapped}/etc/profile.d/command-not-found.nu
         '';
         plugins = with pkgs.nushellPlugins; [ polars ];
       };
+
+    programs.command-not-found.enable = true;
+    programs.comma.enable = true;
 
     programs.onibotoke.enable = true;
 
@@ -214,14 +215,6 @@ in
         }
       ];
     };
-
-    programs.nix-index = {
-      enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
-    };
-
-    programs.nix-index-database.comma.enable = true;
 
     programs.fd.enable = true;
 

@@ -2,10 +2,7 @@
   description = "functorOS";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # stablepkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    # bleedingpkgs.url = "github:nixos/nixpkgs/master";
-    # nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -44,16 +41,6 @@
 
     dms-shell = {
       url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index = {
-      url = "github:nix-community/nix-index";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -147,7 +134,6 @@
           default = functorOS;
           functorOS = {
             imports = [
-              inputs.nix-index-database.homeModules.nix-index
               inputs.spicetify.homeManagerModules.default
               inputs.agenix.homeManagerModules.age
               inputs.onibotoke.homeManagerModules.default
