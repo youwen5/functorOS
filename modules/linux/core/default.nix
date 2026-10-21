@@ -104,6 +104,9 @@ in
         ];
       };
 
+      programs.command-not-found.enabled = true;
+      programs.comma.enable = true;
+
       services.upower.enable = true;
 
       services.power-profiles-daemon.enable = true;
