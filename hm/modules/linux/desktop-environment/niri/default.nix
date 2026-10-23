@@ -265,7 +265,11 @@ in
                   ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${lib.getExe pkgs.swappy} -f -'';
                 "Mod+T".action.spawn = "${lib.getExe pkgs.kitty}";
                 "Mod+Shift+P".action.spawn-sh = "${lib.getExe pkgs.grim} - | ${lib.getExe pkgs.swappy} -f -";
-                "Mod+B".action.spawn = "${lib.getExe config.functorOS.programs.defaultBrowser}";
+                "Mod+B".action.spawn =
+                  let
+                    x = config.functorOS.programs.defaultBrowser;
+                  in
+                  "${if builtins.isString x then x else lib.getExe x}";
                 "Mod+M".action.spawn = "${lib.getExe pkgs.thunderbird}";
                 "Mod+E".action.spawn = "${lib.getExe pkgs.nautilus}";
                 "Super+x".action.spawn-sh = "pkill -x rofi || rofi -show window";

@@ -21,14 +21,14 @@ in
       '';
     };
     defaultBrowser = lib.mkOption {
-      type = lib.types.package;
+      type = lib.types.either lib.types.str lib.types.package;
       default = pkgs.zen-browser;
       description = ''
         Default browser for the system.
       '';
     };
     browserDesktopFile = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.nullOr lib.types.str;
       default = "zen.desktop";
       description = ''
         Name of desktop file of browser.
@@ -82,21 +82,26 @@ in
         let
           desktopFile = cfg.browserDesktopFile;
         in
-        {
-          "text/html" = [ desktopFile ];
-          "x-scheme-handler/http" = [ desktopFile ];
-          "x-scheme-handler/https" = [ desktopFile ];
-          "x-scheme-handler/about" = [ desktopFile ];
-          "x-scheme-handler/unknown" = [ desktopFile ];
-          "image/*" = lib.mkIf config.functorOS.programs.bulk.desktopApps.enable [
-            "org.gnome.Loupe.desktop"
-          ];
-
-        };
+        lib.mkMerge [
+          (lib.mkIf (desktopFile != null) {
+            "text/html" = [ desktopFile ];
+            "x-scheme-handler/http" = [ desktopFile ];
+            "x-scheme-handler/https" = [ desktopFile ];
+            "x-scheme-handler/about" = [ desktopFile ];
+            "x-scheme-handler/unknown" = [ desktopFile ];
+          })
+          {
+            "image/*" = lib.mkIf config.functorOS.programs.bulk.desktopApps.enable [
+              "org.gnome.Loupe.desktop"
+            ];
+          }
+        ];
     };
 
-    home.packages = [ cfg.defaultBrowser ];
+    home.packages = lib.mkIf (!(builtins.isString cfg.defaultBrowser)) [ cfg.defaultBrowser ];
 
-    home.sessionVariables.DEFAULT_BROWSER = lib.getExe cfg.defaultBrowser;
+    home.sessionVariables.DEFAULT_BROWSER = lib.mkIf (!(builtins.isString cfg.defaultBrowser)) (
+      lib.getExe cfg.defaultBrowser
+    );
   };
 }
