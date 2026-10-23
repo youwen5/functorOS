@@ -79,7 +79,7 @@ in
       };
 
     programs.command-not-found.enable = true;
-    programs.comma.enable = true;
+    programs.command-not-found.dbPath = "${pkgs.path}/programs.sqlite";
 
     programs.onibotoke.enable = true;
 
