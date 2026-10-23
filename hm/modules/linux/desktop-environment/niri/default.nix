@@ -283,8 +283,13 @@ in
                 };
 
                 "Mod+z" = {
-                  hotkey-overlay.title = "Keyboard cursor";
+                  hotkey-overlay.title = "Keyboard cursor (click)";
                   action.spawn-sh = "pkill -x wl-kbptr || ${lib.getExe pkgs.wl-kbptr}";
+                };
+
+                "Mod+Shift+z" = {
+                  hotkey-overlay.title = "Keyboard cursor (drag)";
+                  action.spawn-sh = "pkill -x wl-kbptr || ${lib.getExe pkgs.wl-kbptr} --drag";
                 };
 
                 "Mod+Q".action = close-window;
