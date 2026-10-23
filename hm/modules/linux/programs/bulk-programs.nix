@@ -71,23 +71,6 @@ in
 
     programs.element-desktop.enable = lib.mkIf cfg.instantMessaging.enable true;
 
-    nixpkgs.overlays = [
-      (self: super: {
-        gnome = super.gnome.overrideScope' (
-          gself: gsuper: {
-            nautilus = gsuper.nautilus.overrideAttrs (nsuper: {
-              buildInputs =
-                nsuper.buildInputs
-                ++ (with super.gst_all_1; [
-                  gst-plugins-good
-                  gst-plugins-bad
-                ]);
-            });
-          }
-        );
-      })
-    ];
-
     home.packages =
       lib.optionals cfg.archiveTools.enable (
         with pkgs;
