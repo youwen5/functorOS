@@ -17,7 +17,7 @@ in
 
   config.home-manager = lib.mkIf cfg.integrateHomeManager {
     useGlobalPkgs = true;
-    useUserPackages = true;
+    useUserPackages = false;
     backupFileExtension = "backup";
   };
 }
