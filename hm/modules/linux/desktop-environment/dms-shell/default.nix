@@ -6,6 +6,7 @@
   ...
 }:
 let
+  niriCfg = config.functorOS.desktop.niri;
   cfg = config.functorOS.desktop.dms-shell;
 in
 {
@@ -36,6 +37,7 @@ in
         acProfileName = "2";
         acPostLockMonitorTimeout = 120;
         showOccupiedWorkspacesOnly = true;
+        clockFormat = "12h";
         batteryMonitorTimeout = 300;
         batteryLockTimeout = 600;
         batterySuspendTimeout = 900;
@@ -68,11 +70,6 @@ in
                 enabled = true;
                 focusedWindowSize = 1;
               }
-              {
-                id = "clock";
-                enabled = true;
-                clockCompactMode = true;
-              }
             ];
             centerWidgets = [ ];
             rightWidgets = [
@@ -100,12 +97,17 @@ in
                 id = "controlCenterButton";
                 enabled = true;
               }
+              {
+                id = "clock";
+                enabled = true;
+                clockCompactMode = true;
+              }
             ];
-            spacing = 4;
-            innerPadding = 4;
-            bottomGap = 0;
-            transparency = 1;
-            widgetTransparency = 1;
+            spacing = if niriCfg.performative then 8 else 4;
+            innerPadding = if niriCfg.performative then 8 else 4;
+            bottomGap = if niriCfg.performative then 8 else 0;
+            transparency = if niriCfg.performative then 0.75 else 1;
+            widgetTransparency = if niriCfg.performative then 0.8 else 1;
             squareCorners = false;
             noBackground = false;
             gothCornersEnabled = false;
@@ -116,9 +118,9 @@ in
             borderOpacity = 1;
             borderThickness = 1;
             fontScale = 1;
-            autoHide = false;
-            autoHideDelay = 250;
-            openOnOverview = false;
+            autoHide = niriCfg.performative;
+            autoHideDelay = 750;
+            openOnOverview = true;
             visible = true;
             popupGapsAuto = true;
             popupGapsManual = 4;

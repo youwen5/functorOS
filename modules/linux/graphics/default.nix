@@ -65,6 +65,7 @@ in
     functorOS.config.extraUnfreePackages = lib.mkIf cfg.nvidia.enable [
       "nvidia-x11"
       "nvidia-settings"
+      "cuda_cudart"
     ];
 
     assertions = [

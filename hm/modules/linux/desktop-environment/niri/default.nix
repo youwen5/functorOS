@@ -17,11 +17,19 @@ in
         Whether to enable and rice Niri.
       '';
     };
+    performative = lib.mkOption {
+      type = lib.types.bool;
+      default = osConfig.functorOS.desktop.niri.performative;
+      description = ''
+        Whether to enable expressive Niri animations and window and panel styling.
+      '';
+    };
     reduceMotion = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = !cfg.performative;
       description = ''
         Whether to remove overshoots from window animations and speed them up.
+        This also overrides performative animations when explicitly enabled.
       '';
     };
   };
@@ -122,32 +130,40 @@ in
               includes = [
                 ./blur.kdl
               ]
-              ++ lib.optionals (!cfg.reduceMotion) [ ./anim.kdl ];
+              ++ lib.optionals (!cfg.reduceMotion) [
+                (if cfg.performative then ./anim-performative.kdl else ./anim.kdl)
+              ];
               prefer-no-csd = true;
               cursor.hide-when-typing = true;
               window-rules = [
                 {
-                  geometry-corner-radius = {
-                    top-left = 8.0;
-                    top-right = 8.0;
-                    bottom-right = 8.0;
-                    bottom-left = 8.0;
-                  };
+                  geometry-corner-radius =
+                    let
+                      cornerRadius = if cfg.performative then 16.0 else 8.0;
+                    in
+                    {
+                      top-left = cornerRadius;
+                      top-right = cornerRadius;
+                      bottom-right = cornerRadius;
+                      bottom-left = cornerRadius;
+                    };
                   clip-to-geometry = true;
                   open-fullscreen = false;
                   draw-border-with-background = false;
-                  opacity = 0.95;
+                  opacity = if cfg.performative then 0.875 else 0.95;
                 }
               ];
               layout = {
-                gaps = 8.0;
+                gaps = if cfg.performative then 16.0 else 8.0;
                 empty-workspace-above-first = true;
                 always-center-single-column = true;
                 default-column-width.proportion = 0.5;
+                default-column-display = "normal";
                 preset-column-widths = [
                   { proportion = 0.33333; }
                   { proportion = 0.5; }
                   { proportion = 0.66667; }
+                  { proportion = 1.0; }
                 ];
                 preset-window-heights = [
                   { proportion = 0.33333; }
@@ -156,20 +172,22 @@ in
                   { proportion = 1.0; }
                 ];
                 border = {
-                  enable = false;
+                  enable = cfg.performative;
                 };
                 focus-ring = {
                   enable = true;
-                  width = 2.0;
+                  width = if cfg.performative then 3.0 else 2.0;
                   active.gradient = {
                     from = "${config.lib.stylix.colors.withHashtag.base0A}";
-                    to = "${config.lib.stylix.colors.withHashtag.base09}";
+                    to = "${config.lib.stylix.colors.withHashtag.base0D}";
                     relative-to = "workspace-view";
                   };
-                  # inactive.gradient = {
-                  #   from = "${config.lib.stylix.colors.withHashtag.base01}";
-                  #   to = "${config.lib.stylix.colors.withHashtag.base02}";
-                  # };
+                  inactive = lib.mkIf cfg.performative {
+                    gradient = {
+                      from = "${config.lib.stylix.colors.withHashtag.base00}";
+                      to = "${config.lib.stylix.colors.withHashtag.base01}";
+                    };
+                  };
                 };
                 shadow = {
                   enable = true;

@@ -23,6 +23,13 @@ in
         Whether to enable Niri. Sets up an opinionated configuration at the system and user level.
       '';
     };
+    niri.performative = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Whether to enable expressive Niri animations and window and panel styling.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {

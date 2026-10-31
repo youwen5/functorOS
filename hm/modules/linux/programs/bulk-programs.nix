@@ -48,7 +48,7 @@ in
         splashBackground = "#${config.lib.stylix.colors.base01}";
         splashColor = "#${config.lib.stylix.colors.base05}";
         hardwareAcceleration = true;
-        discordBranch = "stable";
+        discordBranch = "ptb";
       };
       vencord.settings = {
         autoUpdate = false;
