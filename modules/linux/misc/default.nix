@@ -87,10 +87,12 @@ in
 
     fonts = mkIf cfg.system.fonts.enable {
       enableDefaultPackages = true;
+      fontDir.enable = true;
       packages =
         with pkgs;
         [
           noto-fonts-cjk-sans
+          noto-fonts-cjk-serif
           nerd-fonts.geist-mono
         ]
         ++ (lib.optionals (!config.functorOS.theming.enable) [
