@@ -56,6 +56,12 @@ in
         environment.systemPackages = with pkgs; [
           (reaper.overrideAttrs (
             finalAttrs: prevAttrs: {
+              # Keep relocated ELF sections clear of the original read-only LOAD
+              # segment; overlapping mappings otherwise crash ld.so at DT_DEBUG.
+              patchelfFlags = (prevAttrs.patchelfFlags or [ ]) ++ [
+                "--page-size"
+                "65536"
+              ];
               installPhase = ''
                 runHook preInstall
 
@@ -71,23 +77,29 @@ in
                 # Setting the rpath of the plugin shared object files does not
                 # seem to have an effect for some plugins.
                 # We opt for wrapping the executable with LD_LIBRARY_PATH prefix.
-                # Note that libcurl and libxml2 are needed for ReaPack to run.
+                # Note that libcurl and libxml2_13 are needed for ReaPack to run.
                 wrapProgram $out/opt/REAPER/reaper \
+                  --prefix PIPEWIRE_LATENCY : "256/48000" \
+                  --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
                   --prefix LD_LIBRARY_PATH : "${
                     lib.makeLibraryPath [
                       curl
                       lame
-                      libxml2
-                      ffmpeg
+                      libxml2_13
+                      ffmpeg-headless
                       vlc
                       xdotool
                       stdenv.cc.cc
+                      openssl
                     ]
-                  }" \
-                  --prefix PIPEWIRE_LATENCY : "256/48000"
+                  }"
 
                 mkdir $out/bin
                 ln -s $out/opt/REAPER/reaper $out/bin/
+
+                # Avoid store path in Exec, since we already link to $out/bin
+                substituteInPlace $out/share/applications/cockos-reaper.desktop \
+                  --replace-fail "Exec=\"$out/opt/REAPER/reaper\"" "Exec=reaper"
 
                 runHook postInstall
               '';
