@@ -202,7 +202,7 @@ in
                 };
               };
               input.touchpad = {
-                tap = false;
+                tap = true;
               };
               binds = {
                 "Mod+D" = {
