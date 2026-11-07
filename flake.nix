@@ -39,6 +39,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    horosphere = {
+      url = "git+https://code.functor.systems/functor.systems/horosphere.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dms-shell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -105,6 +110,7 @@
               inputs.agenix.nixosModules.age
               inputs.musnix.nixosModules.musnix
               inputs.niri.nixosModules.niri
+              inputs.horosphere.nixosModules.default
               inputs.nixathena.nixosModules.default
               ./modules/default.nix
               ./overlays

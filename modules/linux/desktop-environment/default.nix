@@ -30,6 +30,14 @@ in
         Whether to enable expressive Niri animations and window and panel styling.
       '';
     };
+    horosphere.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Whether to enable Horosphere, the optional Cage-backed Horosphere desktop session;
+        see <https://x.com/undebeha/status/2115974794751701503> for more info
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -38,6 +46,15 @@ in
       useNautilus = cfg.niri.enable;
       package = pkgs.niri;
     };
+
+    programs.horosphere = {
+      enable = cfg.horosphere.enable;
+      sessionEnvironment = {
+        HOROSPHERE_TERMINAL = "${pkgs.kitty}/bin/kitty";
+      };
+    };
+
+    services.displayManager.defaultSession = lib.mkIf cfg.niri.enable (lib.mkDefault "niri");
 
     environment.systemPackages = lib.mkIf cfg.niri.enable [ pkgs.xwayland-satellite ];
 
