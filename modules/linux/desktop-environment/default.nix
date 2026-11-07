@@ -35,7 +35,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.niri = {
       enable = cfg.niri.enable;
-      useNautilus = cfg.niri.enable;
       package = pkgs.niri;
     };
 

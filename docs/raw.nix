@@ -9,7 +9,10 @@
 let
   # evaluate our options
   eval = lib.evalModules {
-    modules = [ ../modules/default.nix ];
+    modules = [
+      ../modules/default.nix
+      { _module.check = false; }
+    ];
     specialArgs = {
       inherit pkgs;
     };

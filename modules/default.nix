@@ -21,5 +21,4 @@ in
       '';
     };
   };
-  config._module.check = false;
 }

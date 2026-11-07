@@ -90,6 +90,10 @@ in
           wget
           git
           curl
+          (lib.mkIf
+            (config.functorOS.formFactor == "laptop")
+            brightnessctl
+          )
         ])
         ++ [
           config.functorOS.defaultEditor
@@ -104,7 +108,7 @@ in
         ];
       };
 
-      programs.command-not-found.enabled = true;
+      programs.command-not-found.enable = true;
       programs.comma.enable = true;
 
       services.upower.enable = true;
@@ -141,7 +145,6 @@ in
       };
     })
     (lib.mkIf cfg.replaceSudoWithRun0 {
-      security.polkit.persistentAuthentication = true;
       security.run0.enable = true;
       security.run0.persistentAuth.enable = true;
       security.run0.sudo-shim.enable = true;
@@ -202,21 +205,6 @@ in
         };
         flake = config.functorOS.flakeLocation;
       };
-    })
-    (lib.mkIf (config.functorOS.formFactor == "laptop") {
-      # services.tlp = {
-      #   enable = true;
-      #
-      #   # due to a new default on tlp 1.9, powerful laptops will have their fans
-      #   # run at maximum speed, resulting in severe degradation and rendering the system practically unusable;
-      #   # this setting overrides the default behavior to use a sane fan profile.
-      #   # for more information, see https://github.com/linrunner/TLP/issues/840
-      #   settings = {
-      #     PLATFORM_PROFILE_ON_AC = "balanced-performance";
-      #     PLATFORM_PROFILE_ON_BAT = "balanced-performance";
-      #   };
-      # };
-      programs.brightnessctl.enable = true;
     })
     (lib.mkIf cfg.bluetooth.enable {
       hardware.bluetooth = {
