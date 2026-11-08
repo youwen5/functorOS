@@ -42,6 +42,7 @@ in
       in
       {
         enable = true;
+        loadSessionVariables = lib.mkDefault (lib.versionAtLeast config.home.stateVersion "26.11");
         configFile.source = ./config.nu;
         settings = {
           show_banner = false;
