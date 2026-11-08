@@ -24,9 +24,6 @@ in
           });
         }
       );
-      khal = super.khal.overrideAttrs {
-        sphinxBuilders = [ "html man" ];
-      };
       wl-kbptr = super.wl-kbptr.overrideAttrs {
         version = "0-unstable-2026-10-23";
         src = super.fetchFromGitHub {
