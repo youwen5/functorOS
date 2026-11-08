@@ -24,6 +24,9 @@ in
           });
         }
       );
+      manga-tui = super.manga-tui.overrideAttrs (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [ self.zstd ];
+      });
       wl-kbptr = super.wl-kbptr.overrideAttrs {
         version = "0-unstable-2026-10-23";
         src = super.fetchFromGitHub {
