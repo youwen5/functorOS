@@ -609,11 +609,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757151634,
-        "narHash": "sha256-x9X3hohIfa5K3Dp4JssWq/cbpT5mmEonoCfYt8wTEjY=",
+        "lastModified": 1794172250,
+        "narHash": "sha256-fNekXwL7gVfFu+v2YkAm2Jhs/UW6zABRx7jBYwGo9bs=",
         "owner": "youwen5",
         "repo": "onibotoke",
-        "rev": "82f03e93c17aadecd819099a2c6709d86b65ac7c",
+        "rev": "18a0c2fe04fd4361451d0c8be2bfd76061c5f2a1",
         "type": "github"
       },
       "original": {
