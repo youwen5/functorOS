@@ -25,7 +25,7 @@ in
         }
       );
       manga-tui = super.manga-tui.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ self.zstd ];
+        buildInputs = (old.buildInputs or [ ]) ++ [ self.zstd self.sqlite ];
       });
       nushellPlugins = super.nushellPlugins // {
         polars = super.nushellPlugins.polars.overrideAttrs (old: {
