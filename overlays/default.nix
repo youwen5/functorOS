@@ -25,11 +25,22 @@ in
         }
       );
       manga-tui = super.manga-tui.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ self.zstd self.sqlite ];
+        buildInputs = (old.buildInputs or [ ]) ++ [
+          self.zstd
+          self.sqlite
+        ];
       });
       nushellPlugins = super.nushellPlugins // {
         polars = super.nushellPlugins.polars.overrideAttrs (old: {
-          buildInputs = (old.buildInputs or [ ]) ++ [ self.aws-lc self.zstd self.zlib ];
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            self.aws-lc
+            self.zstd
+            self.zlib
+          ];
+          nativeCheckInputs = (old.nativeCheckInputs or [ ]) ++ [
+            self.libgit2
+            self.sqlite
+          ];
         });
       };
       wl-kbptr = super.wl-kbptr.overrideAttrs {
