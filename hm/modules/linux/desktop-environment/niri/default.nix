@@ -51,7 +51,7 @@ in
 
         programs.rofi = {
           enable = true;
-          terminal = "${lib.getExe pkgs.kitty}";
+          settings.terminal = "${lib.getExe pkgs.kitty}";
           theme =
             let
               inherit (config.lib.formats.rasi) mkLiteral;
