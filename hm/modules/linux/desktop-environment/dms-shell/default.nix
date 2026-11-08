@@ -7,15 +7,16 @@
 }:
 let
   niriCfg = config.functorOS.desktop.niri;
+  horosphereEnabled = osConfig.functorOS.desktop.horosphere.enable;
   cfg = config.functorOS.desktop.dms-shell;
 in
 {
   options.functorOS.desktop.dms-shell = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = osConfig.functorOS.desktop.niri.enable;
+      default = osConfig.functorOS.desktop.niri.enable || horosphereEnabled;
       description = ''
-        Whether to enable and rice dms-shell w/ Niri integration.
+        Whether to enable and rice dms-shell for Niri and Horosphere.
       '';
     };
   };
@@ -128,5 +129,26 @@ in
         ];
       };
     };
+
+    xdg.configFile = lib.mkIf horosphereEnabled {
+      "horosphere/session.sh".text = ''
+        export HOROSPHERE_DMS=${lib.escapeShellArg (lib.getExe config.programs.dank-material-shell.package)}
+      '';
+      "horosphere/bindings.conf".text = ''
+        Super+b = exec ${
+          let
+            x = config.functorOS.programs.defaultBrowser;
+          in
+          if builtins.isString x then x else lib.getExe x
+        }
+        Super+e = exec ${lib.getExe pkgs.nautilus}
+        Super+m = exec ${lib.getExe pkgs.thunderbird}
+        Super+r = exec ${lib.getExe pkgs.pavucontrol} -t 3
+        Super+p = exec ${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${lib.getExe pkgs.swappy} -f -
+        Super+Shift+p = exec ${lib.getExe pkgs.grim} - | ${lib.getExe pkgs.swappy} -f -
+        Print = exec ${lib.getExe pkgs.grim} - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png
+      '';
+    };
+    home.packages = lib.mkIf horosphereEnabled [ pkgs.wl-clipboard ];
   };
 }

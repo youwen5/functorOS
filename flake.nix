@@ -40,7 +40,7 @@
     };
 
     horosphere = {
-      url = "git+https://code.functor.systems/functor.systems/horosphere.git";
+      url = "git+ssh://forgejo@code.functor.systems/functor.systems/horosphere.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

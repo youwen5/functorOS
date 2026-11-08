@@ -395,17 +395,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1794085406,
-        "narHash": "sha256-Gmvwa3FC8SzetK5PyP5NXn+keLtWtit7zAcrXtOY7kI=",
+        "lastModified": 1794104375,
+        "narHash": "sha256-XroqL7BMvo2zgSzDEJCXNaeBeMnZG+TVvvz/gMlzMuU=",
         "ref": "refs/heads/main",
-        "rev": "21e461f6f4d3e458b8bfc5d02cdd75a952133e15",
-        "revCount": 3,
+        "rev": "328c373588e77ef109a90ef6b0b95a41b2f83959",
+        "revCount": 5,
         "type": "git",
-        "url": "https://code.functor.systems/functor.systems/horosphere.git"
+        "url": "ssh://forgejo@code.functor.systems/functor.systems/horosphere.git"
       },
       "original": {
         "type": "git",
-        "url": "https://code.functor.systems/functor.systems/horosphere.git"
+        "url": "ssh://forgejo@code.functor.systems/functor.systems/horosphere.git"
       }
     },
     "musnix": {
