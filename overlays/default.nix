@@ -24,12 +24,6 @@ in
           });
         }
       );
-      manga-tui = super.manga-tui.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [
-          self.zstd
-          self.sqlite
-        ];
-      });
       nushellPlugins = super.nushellPlugins // {
         polars = super.nushellPlugins.polars.overrideAttrs (old: {
           buildInputs = (old.buildInputs or [ ]) ++ [
@@ -37,7 +31,7 @@ in
             self.zstd
             self.zlib
           ];
-          nativeCheckInputs = (old.nativeCheckInputs or [ ]) ++ [
+          checkInputs = (old.checkInputs or [ ]) ++ [
             self.libgit2
             self.sqlite
           ];

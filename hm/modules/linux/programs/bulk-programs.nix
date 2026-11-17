@@ -97,7 +97,6 @@ in
           usbutils # lsusb
 
           ani-cli
-          manga-tui
 
           hledger
         ]
