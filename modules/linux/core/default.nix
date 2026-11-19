@@ -178,10 +178,8 @@ in
       nix.settings.trusted-users = [ "@wheel" ];
     })
     (lib.mkIf cfg.chinaOptimizations {
-      nix.settings.substituters = lib.mkOverride 900 [
+      nix.settings.substituters = [
         "https://mirrors4.tuna.tsinghua.edu.cn/nix-channels/store?priority=1"
-        "https://cache.nixos.org?priority=2"
-        "https://nix-community.cachix.org?priority=3"
       ];
     })
     (lib.mkIf cfg.customOSName {
