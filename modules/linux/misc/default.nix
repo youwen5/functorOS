@@ -38,6 +38,14 @@ in
         Packages to enable in allowUnfreePredicate
       '';
     };
+    config.extraUnfreeLicenses = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = ''
+        License shortNames to allow in allowUnfreePredicate. A package is allowed if
+        every one of its licenses is either free or listed here.
+      '';
+    };
     flakeLocation = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
@@ -104,13 +112,24 @@ in
 
     nixpkgs.config.allowUnfreePredicate = lib.mkIf config.functorOS.config.allowUnfree (
       pkg:
-      builtins.elem (pkgs.lib.getName pkg) (
+      let
+        licenses = lib.toList (pkg.meta.license or [ ]);
+      in
+      builtins.elem (lib.getName pkg) (
         config.functorOS.config.extraUnfreePackages
         ++ [
           "spotify"
           "tidal-hifi"
           "castlabs-electron"
         ]
+      )
+      || (
+        licenses != [ ]
+        && builtins.all (
+          license:
+          license.free or false
+          || builtins.elem (license.shortName or "") config.functorOS.config.extraUnfreeLicenses
+        ) licenses
       )
     );
 
