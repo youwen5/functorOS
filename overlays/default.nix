@@ -24,19 +24,6 @@ in
           });
         }
       );
-      nushellPlugins = super.nushellPlugins // {
-        polars = super.nushellPlugins.polars.overrideAttrs (old: {
-          buildInputs = (old.buildInputs or [ ]) ++ [
-            self.aws-lc
-            self.zstd
-            self.zlib
-          ];
-          checkInputs = (old.checkInputs or [ ]) ++ [
-            self.libgit2
-            self.sqlite
-          ];
-        });
-      };
       wl-kbptr = super.wl-kbptr.overrideAttrs {
         version = "0-unstable-2026-10-23";
         src = super.fetchFromGitHub {
