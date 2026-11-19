@@ -20,7 +20,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      darktable
+      (darktable.override { withAi = true; })
       digikam
       imagemagick
     ];
