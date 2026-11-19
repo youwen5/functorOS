@@ -17,6 +17,7 @@
     ./graphics
     ./localization
     ./location-services
+    ./ram-rgb
   ];
 
   options.functorOS.enable = lib.mkOption {
