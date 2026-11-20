@@ -21,6 +21,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # The upstream home-manager module ignores `systemd.restartIfChanged`, and
+    # the unit itself only references the package, so changes to the generated
+    # settings/session files (e.g. stylix light/dark specialisations) would not
+    # restart dms. Add them as restart triggers so sd-switch restarts it.
+    systemd.user.services.dms.Unit.X-Restart-Triggers =
+      let
+        dmsCfg = config.programs.dank-material-shell;
+      in
+      lib.optional (dmsCfg.settings != { }) config.xdg.configFile."dms/settings.json".source
+      ++ lib.optional (
+        dmsCfg.clipboardSettings != { }
+      ) config.xdg.configFile."dms/clsettings.json".source
+      ++ lib.optional dmsCfg.managePluginSettings config.xdg.configFile."dms/plugin_settings.json".source
+      ++ lib.optional (dmsCfg.session != { }) config.xdg.stateFile."dms/session.json".source;
+
     programs.dank-material-shell = {
       enable = true;
       systemd.enable = true;
