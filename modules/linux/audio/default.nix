@@ -16,7 +16,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ config.services.pipewire.package.jack ];
     services.playerctld.enable = true;
     services.pipewire = {
       enable = true;
@@ -24,6 +23,7 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
       wireplumber.enable = true;
+      jack.enable = true;
       # extraConfig.pipewire = {
       #   bluez = {
       #     bluez5.a2dp.latency.msec = 200;
